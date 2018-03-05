@@ -1,3 +1,5 @@
+import Vue from 'vue';
+
 let mutations = {
   setMainProducts(state, payload){
     state.mainProducts = payload;
@@ -27,7 +29,8 @@ let mutations = {
       }
     }
     if(!found){
-      payload.product.quantity = payload.quantity;
+      Vue.set(payload.product,'quantity',payload.quantity);
+      //payload.product.quantity = payload.quantity;
       state.selectedAddonProducts.push(payload.product);
     }
   },
