@@ -4,10 +4,14 @@ import store from './store/store'
 import {polyfill} from 'es6-promise';
 polyfill();
 
-//require('es6-promise').polyfill();
-
 Vue.filter('getProductImage', product => {
   return product.images[0].src;
+});
+
+Vue.filter('getPrice', product => {
+  if(product.variants){
+    return `$${product.variants[0].price}`
+  }
 });
 
 new Vue({
