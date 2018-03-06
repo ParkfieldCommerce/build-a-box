@@ -66,6 +66,36 @@ let getters = {
       tags = [...tags, ...tagsToAdd];
     }
     return tags;
+  },
+  totalBuildPrice(state){
+    let totalPrice = 0;
+    let mainProduct = state.selectedMainProduct;
+    let addonProducts = state.selectedAddonProducts;
+    let cardProduct = state.selectedCardProduct;
+
+    function priceToInt(product){
+      return parseInt(product.variants[0].price.replace('.',''));
+    }
+
+    function intToPrice(price){
+      return `$${(price / 100).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`;
+    }
+
+    if(mainProduct.variants){
+      totalPrice += priceToInt(mainProduct);
+    }
+
+    if(addonProducts.length > 0){
+      addonProducts.forEach(addon =>{
+        totalPrice += priceToInt(addon) * addon.quantity;
+      });
+    }
+
+    if(cardProduct.variants){
+      totalPrice += priceToInt(cardProduct);
+    }
+
+    return intToPrice(totalPrice);
   }
 };
 

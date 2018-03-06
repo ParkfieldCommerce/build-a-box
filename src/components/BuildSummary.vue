@@ -7,11 +7,14 @@
       <li v-for="addon in addonProducts">
         {{addon.title}} - {{addon.quantity}}
         {{addon | getPrice}}
+        <button @click="removeAddon(addon)">x</button>
       </li>
     </ul>
     <div class="BuildSummary__card-product">
       {{cardProduct.title}} - {{cardProduct | getPrice}}
+      {{cardProduct.message}}
     </div>
+    <div class="BuildSummary__total-price">{{totalBuildPrice}}</div>
   </div>
 </template>
 
@@ -26,6 +29,14 @@ export default {
     },
     cardProduct(){
       return this.$store.state.selectedCardProduct;
+    },
+    totalBuildPrice(){
+      return this.$store.getters.totalBuildPrice;
+    }
+  },
+  methods:{
+    removeAddon(product){
+      this.$store.commit('removeSelectedAddonProduct', product);
     }
   }
 };

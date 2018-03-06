@@ -34,11 +34,21 @@ let mutations = {
       state.selectedAddonProducts.push(payload.product);
     }
   },
+  removeSelectedAddonProduct(state, payload){
+    let indexToUpdate = state.selectedAddonProducts.findIndex( addon => {
+      return addon.id == payload.id;
+    });
+    if(payload.quantity > 1){
+      state.selectedAddonProducts[indexToUpdate].quantity = payload.quantity -1;
+    }else{
+      state.selectedAddonProducts.splice(indexToUpdate, 1);
+    }
+  },
   updateSelectedCardProduct(state,payload){
     state.selectedCardProduct = payload;
   },
   updateSelectedCardMessage(state,payload){
-    state.selectedCardProduct.message = payload;
+    Vue.set(state.selectedCardProduct,'message',payload);
   },
   updateFilters(state, payload){
     state.selectedFilters = payload;

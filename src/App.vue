@@ -33,12 +33,13 @@
 </template>
 
 <script>
-import AddonProduct from './components/AddonProduct.vue';
-import BuildSummary from './components/BuildSummary.vue';
-import CardProduct from './components/CardProduct.vue';
-import MainProduct from './components/MainProduct.vue';
-import PageBar from './components/PageBar.vue';
-import ProductFilter from './components/ProductFilter.vue';
+import AddonProduct from './components/AddonProduct.vue'
+import BuildSummary from './components/BuildSummary.vue'
+import CardProduct from './components/CardProduct.vue'
+import MainProduct from './components/MainProduct.vue'
+import PageBar from './components/PageBar.vue'
+import ProductFilter from './components/ProductFilter.vue'
+import { mapGetters } from 'vuex'
 
 export default {
   components:{
@@ -58,18 +59,12 @@ export default {
     mainProducts(){
       return this.$store.state.mainProducts;
     },
-    addonProducts(){
-      return this.$store.getters.addonProducts;
-    },
-    cardProducts(){
-      return this.$store.getters.cardProducts;
-    },
-    addonFilterOptions(){
-      return this.$store.getters.addonFilterOptions;
-    },
-    cardFilterOptions(){
-      return this.$store.getters.cardFilterOptions;
-    }
+    ...mapGetters([
+      'addonProducts',
+      'cardProducts',
+      'addonFilterOptions',
+      'cardFilterOptions'
+    ])
   },
   methods:{
     changePage(page){
