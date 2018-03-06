@@ -14,6 +14,17 @@ export default {
       let addonProducts = this.$store.state.selectedAddonProducts;
       let cardProduct = this.$store.state.selectedCardProduct;
       let cartQueue = [];
+      function ajaxAdd(queue){
+        if(queue.length > 0){
+          let currentItem = queue.pop();
+          axios.post('/cart/add.js')
+            .then((response)=>{
+              console.log(response);
+            })
+        }else{
+          console.log('all done');
+        }
+      }
       if(mainProduct.variants){
         cartQueue.push(mainProduct);
       }
@@ -25,12 +36,10 @@ export default {
       if(cardProduct.variants){
         cartQueue.push(cardProduct);
       }
+
       console.log(cartQueue);
   /*    addToCart(){
-        axios.get('/cart/add.js').
-          .then((response)=>{
-          console.log(response);
-        })
+
       }*/
     }
   }
