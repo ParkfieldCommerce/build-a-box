@@ -28,6 +28,7 @@
     </div>
     <div class="BuildABox__sidebar">
     <BuildSummary></BuildSummary>
+    <CartButton></CartButton>
     </div>
   </div>
 </template>
@@ -39,6 +40,7 @@ import CardProduct from './components/CardProduct.vue'
 import MainProduct from './components/MainProduct.vue'
 import PageBar from './components/PageBar.vue'
 import ProductFilter from './components/ProductFilter.vue'
+import CartButton from './components/CartButton.vue'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -48,7 +50,8 @@ export default {
     CardProduct,
     MainProduct,
     PageBar,
-    ProductFilter
+    ProductFilter,
+    CartButton
   },
   data () {
     return {

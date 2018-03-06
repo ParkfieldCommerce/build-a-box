@@ -18,8 +18,9 @@ npm run build
 ## Configuration
 ### Shopify Setup
 
- 1. Create a collection the handle 'all' (This is where we are pulling the products from)
- 2. Give a unique product type to the main product, the addon products that are bundled with the main product, as well as the card product
+ 1. This setup requires [CartJS bundled with Rivets.js](https://cartjs.org) to be installed
+ 2. Create a collection the handle 'all' (This is where we are pulling the products from)
+ 3. Give a unique product type to the main product, the addon products that are bundled with the main product, as well as the card product
 
 ### Project Setup
 In /store/actions.js configure these variables
