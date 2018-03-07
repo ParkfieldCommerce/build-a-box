@@ -14,33 +14,54 @@ export default {
       let addonProducts = this.$store.state.selectedAddonProducts;
       let cardProduct = this.$store.state.selectedCardProduct;
       let cartQueue = [];
+      let boxKey = Math.floor(Math.random() * 1000) + 1;
+
       function ajaxAdd(queue){
         if(queue.length > 0){
           let currentItem = queue.pop();
-          axios.post('/cart/add.js')
-            .then((response)=>{
-              console.log(response);
-            })
+          axios.post('/cart/add.js',currentItem)
+          .then( response =>{
+            ajaxAdd(queue);
+          })
+          .catch( err => {
+            console.log(err);
+          });
         }else{
           console.log('all done');
         }
       }
       if(mainProduct.variants){
-        cartQueue.push(mainProduct);
+        cartQueue.push({
+          id:mainProduct.variants[0].id,
+          quantity: 1,
+          properties:{
+            BoxNum:boxKey
+          }
+        });
       }
       if(addonProducts.length > 0){
         addonProducts.forEach( addon => {
-          cartQueue.push(addon);
+          cartQueue.push({
+            id: addon.variants[0].id,
+            quantity: addon.quantity,
+            properties:{
+              BoxNum:boxKey
+            }
+          });
         });
       }
       if(cardProduct.variants){
-        cartQueue.push(cardProduct);
+        cartQueue.push({
+          id:cardProduct.variants[0].id,
+          quantity:1,
+          properties:{
+            BoxNum:boxKey,
+            message:cardProduct.message
+          }
+        });
       }
 
-      console.log(cartQueue);
-  /*    addToCart(){
-
-      }*/
+      ajaxAdd(cartQueue);
     }
   }
 };
