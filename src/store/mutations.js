@@ -44,11 +44,21 @@ let mutations = {
   updateSelectedCardMessage(state,payload){
     Vue.set(state.selectedCardProduct,'message',payload);
   },
+
   updateFilters(state, payload){
-    state.selectedFilters = payload;
+    //If the category already exists, this finds and removes it
+    let category = payload.split('_').shift();
+    let existingIndex = state.selectedFilters.findIndex( filter => {
+      return filter.indexOf(category) > -1;
+    });
+    if(existingIndex > -1){
+      state.selectedFilters.splice(existingIndex, 1);
+    }
+    
+    state.selectedFilters.push(payload);
   },
   clearFilters(state){
-    state.selectedFilters = 'all';
+    state.selectedFilters = [];
   }
 };
 

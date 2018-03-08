@@ -26,7 +26,6 @@ export default {
       if(pageNumber == 3) {
         this.$emit('changepage', pageNumber);
       }
-      this.$store.commit('clearFilters');
     }
   }
 };

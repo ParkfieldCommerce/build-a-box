@@ -1,12 +1,12 @@
 let getters = {
   isSelectedMainProduct(state){
     return (product) =>{
-      return state.selectedMainProduct.id == product.id;
+      return state.selectedMainProduct.id === product.id;
     }
   },
   isSelectedCardProduct(state){
     return (product) =>{
-      return state.selectedCardProduct.id == product.id;
+      return state.selectedCardProduct.id === product.id;
     }
   },
   isSelectedAddonProduct(state){
@@ -22,50 +22,56 @@ let getters = {
     }
   },
   addonProducts(state){
-    if(state.selectedFilters == 'all'){
+    if(state.selectedFilters.length == 0){
       return state.addonProducts;
-    }else{
-      return state.addonProducts.filter(product => {
+    }
+
+    //If the number of active filters is equal to the number of filters set to 'show all', the filters are inactive
+    let showAllCheck = state.selectedFilters.filter( filter => filter.indexOf('_all') > -1 );
+    let isFiltered = state.selectedFilters.length != showAllCheck.length;
+
+    if(isFiltered){
+      let activeFilters = state.selectedFilters.filter( filter => filter.indexOf('_all') === -1 );
+      //Returns the product if its tags contains the value of ALL the active filters
+      return state.addonProducts.filter( product => {
         let pass = true;
-        if(product.tags.indexOf(state.selectedFilters) === -1){
-          pass = false;
+        for(let i = 0; i < activeFilters.length; i++){
+          if(product.tags.indexOf(activeFilters[i]) === -1){
+            pass = false;
+            break;
+          }
         }
         return pass;
       });
+    }else{
+      return state.addonProducts;
     }
-  },
-  addonFilterOptions(state){
-    let tags = [];
-    for(let i = 0; i < state.addonProducts.length; i++){
-      let tagsToAdd = state.addonProducts[i].tags.filter( tag => {
-        return tags.indexOf(tag) == -1;
-      });
-      tags = [...tags, ...tagsToAdd];
-    }
-    return tags;
   },
   cardProducts(state){
-    if(state.selectedFilters == 'all'){
+    if(state.selectedFilters.length == 0){
       return state.cardProducts;
-    }else{
-      return state.cardProducts.filter(product => {
+    }
+
+    //If the number of active filters is equal to the number of filters set to 'show all', the filters are inactive
+    let showAllCheck = state.selectedFilters.filter( filter => filter.indexOf('_all') > -1 );
+    let isFiltered = state.selectedFilters.length != showAllCheck.length;
+
+    if(isFiltered){
+      let activeFilters = state.selectedFilters.filter( filter => filter.indexOf('_all') === -1 );
+      //Returns the product if its tags contains the value of ALL the active filters
+      return state.cardProducts.filter( product => {
         let pass = true;
-        if(product.tags.indexOf(state.selectedFilters) === -1){
-          pass = false;
+        for(let i = 0; i < activeFilters.length; i++){
+          if(product.tags.indexOf(activeFilters[i]) === -1){
+            pass = false;
+            break;
+          }
         }
         return pass;
       });
+    }else{
+      return state.cardProducts;
     }
-  },
-  cardFilterOptions(state){
-    let tags = [];
-    for(let i = 0; i < state.cardProducts.length; i++){
-      let tagsToAdd = state.cardProducts[i].tags.filter( tag => {
-        return tags.indexOf(tag) === -1;
-      });
-      tags = [...tags, ...tagsToAdd];
-    }
-    return tags;
   },
   totalBuildPrice(state){
     let totalPrice = 0;

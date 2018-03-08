@@ -1,7 +1,7 @@
 <template>
   <div class="BuildABox">
     <div class="BuildABox__main">
-      <PageBar @changepage="changePage($event)"></PageBar>
+      <PageBar @changepage="changePage($event)" :currentpage="currentPage"></PageBar>
       <div v-if="currentPage == 1" class="BuildABox__page BuildABox__page--mainProducts">
         <ul class="BuildABox__main-products">
           <li v-for="product in mainProducts" :key="product.id">
@@ -10,7 +10,8 @@
         </ul>
       </div>
       <div v-if="currentPage == 2" class="BuildABox__page BuildABox__page--addonProducts">
-        <ProductFilter :page="currentPage" :options="addonFilterOptions"></ProductFilter>
+        <ProductFilter :page="currentPage" :options="addonFilterOptions('Occasion')" category="Occasion"></ProductFilter>
+        <ProductFilter :page="currentPage" :options="addonFilterOptions('Type')" category="Type"></ProductFilter>
         <ul class="BuildABox__addon-products">
           <li v-for="product in addonProducts" :key="product.id">
             <AddonProduct :product="product"></AddonProduct>
@@ -18,7 +19,7 @@
         </ul>
       </div>
       <div v-if="currentPage == 3" class="BuildABox__page BuildABox__page--cardProducts">
-        <ProductFilter :page="currentPage" :options="cardFilterOptions"></ProductFilter>
+        <ProductFilter :page="currentPage" :options="cardFilterOptions('Occasion')" category="Occasion"></ProductFilter>
         <ul class="BuildABox__card-products">
           <li v-for="product in cardProducts" :key="product.id">
             <CardProduct :product="product"></CardProduct>
@@ -64,14 +65,38 @@ export default {
     },
     ...mapGetters([
       'addonProducts',
-      'cardProducts',
-      'addonFilterOptions',
-      'cardFilterOptions'
+      'cardProducts'
     ])
   },
   methods:{
     changePage(page){
       this.currentPage = page;
+    },
+    addonFilterOptions(category){
+      let addonProducts = this.$store.state.addonProducts;
+      let tags = [];
+      for(let i = 0; i < addonProducts.length; i++){
+        let tagsToAdd = addonProducts[i].tags.filter( tag => {
+          if(tag.indexOf(`${category}_`) > -1){
+            return tags.indexOf(tag) == -1;
+          }
+        });
+        tags = [...tags, ...tagsToAdd];
+      }
+      return tags;
+    },
+    cardFilterOptions(category){
+      let cardProducts = this.$store.state.cardProducts;
+      let tags = [];
+      for(let i = 0; i < cardProducts.length; i++){
+        let tagsToAdd = cardProducts[i].tags.filter( tag => {
+          if(tag.indexOf(`${category}_`) > -1){
+            return tags.indexOf(tag) == -1;
+          }
+        });
+        tags = [...tags, ...tagsToAdd];
+      }
+      return tags;
     }
   }
 }
