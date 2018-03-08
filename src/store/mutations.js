@@ -10,12 +10,6 @@ let mutations = {
   setCardProducts(state, payload){
     state.cardProducts = payload;
   },
-  setFilteredAddonProducts(state, payload){
-    state.filteredAddonProducts = payload;
-  },
-  setFilteredCardProducts(state, payload){
-    state.filteredCardProducts = payload;
-  },
   updateSelectedMainProduct(state,payload){
     state.selectedMainProduct = payload;
   },

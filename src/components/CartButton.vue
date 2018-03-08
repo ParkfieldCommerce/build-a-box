@@ -1,6 +1,6 @@
 <template>
   <button @click="addToCart">
-    Build my Bundle
+    {{buttonActionText}}
   </button>
 </template>
 
@@ -8,13 +8,23 @@
 import axios from 'axios';
 
 export default {
+  data(){
+    return{
+      isAdding: false
+    }
+  },
+  computed:{
+    buttonActionText(){
+      return this.isAdding ? 'Building...' : 'Build my Bundle';
+    }
+  },
   methods:{
     addToCart(){
       let mainProduct = this.$store.state.selectedMainProduct;
       let addonProducts = this.$store.state.selectedAddonProducts;
       let cardProduct = this.$store.state.selectedCardProduct;
       let cartQueue = [];
-      let boxKey = Math.floor(Math.random() * 1000) + 1;
+      let boxKey = (Math.floor(Math.random() * 1000) + 1).toString();
 
       function ajaxAdd(queue){
         if(queue.length > 0){
@@ -35,7 +45,7 @@ export default {
           id:mainProduct.variants[0].id,
           quantity: 1,
           properties:{
-            BoxNum:boxKey
+            'BoxNum':boxKey
           }
         });
       }
@@ -45,7 +55,7 @@ export default {
             id: addon.variants[0].id,
             quantity: addon.quantity,
             properties:{
-              BoxNum:boxKey
+              'BoxNum':boxKey
             }
           });
         });
@@ -55,12 +65,12 @@ export default {
           id:cardProduct.variants[0].id,
           quantity:1,
           properties:{
-            BoxNum:boxKey,
-            message:cardProduct.message
+            'BoxNum':boxKey,
+            'Message':cardProduct.message
           }
         });
       }
-
+      this.isAdding = true;
       ajaxAdd(cartQueue);
     }
   }

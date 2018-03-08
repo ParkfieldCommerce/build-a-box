@@ -42,15 +42,15 @@ let actions = {
 
     function sortFetchedProducts(totalProductList){
       let mainProductList = totalProductList.filter(product =>{
-        return product.product_type == MAIN_PRODUCT_TYPE;
+        return (product.product_type == MAIN_PRODUCT_TYPE && product.variants[0].available);
       });
 
       let addonProductList = totalProductList.filter(product =>{
-        return product.product_type == ADDON_PRODUCT_TYPE;
+        return (product.product_type == ADDON_PRODUCT_TYPE && product.variants[0].available);
       });
 
       let cardProductList = totalProductList.filter(product =>{
-        return product.product_type == CARD_PRODUCT_TYPE;
+        return (product.product_type == CARD_PRODUCT_TYPE && product.variants[0].available);
       });
 
       context.commit('setMainProducts', mainProductList);
