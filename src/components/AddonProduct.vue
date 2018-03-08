@@ -3,7 +3,11 @@
     <img class="Product__image" :src="product | getProductImage">
     <p class="Product__title">{{product.title}}</p>
     <button class="Product__button" @click="selectProduct">{{buttonActionText}}</button>
-    <input type="number" v-model="quantity"/>
+    <div class="Product__quantity">
+      <button class="Product__quantity-btn" @click="updateQuantity(true)">+</button>
+      <span class="Product__quantity-value">{{quantity}}</span>
+      <button class="Product__quantity-btn" @click="updateQuantity(false)">-</button>
+    </div>
   </div>
 </template>
 
@@ -31,6 +35,15 @@ export default {
       setTimeout(()=>{
         this.added = false;
       },1500);
+    },
+    updateQuantity(increment){
+      if(increment){
+        this.quantity += 1;
+      }else{
+        if(this.quantity - 1 > 0){
+          this.quantity -= 1;
+        }
+      }
     }
   }
 }
