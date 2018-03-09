@@ -8,7 +8,9 @@
 
 <script>
 export default {
-  props:['product'],
+  props:{
+    product:Object
+  },
   computed:{
     buttonActionText(){
       return this.$store.getters.isSelectedMainProduct(this.product) ? 'Remove' : 'Select Bag';

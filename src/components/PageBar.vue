@@ -14,7 +14,9 @@
 
 <script>
 export default {
-  props:['currentpage'],
+  props:{
+    currentpage: Number
+  },
   methods:{
     updatePage(pageNumber){
       if(pageNumber == 1){

@@ -19,7 +19,9 @@ export default {
       quantity: 1
     }
   },
-  props:['product'],
+  props:{
+    product:Object
+  },
   computed:{
     isSelected(){
       return this.$store.getters.isSelectedAddonProduct(this.product);

@@ -10,8 +10,8 @@
         </ul>
       </div>
       <div v-if="currentPage == 2" class="BuildABox__page BuildABox__page--addonProducts">
-        <ProductFilter :page="currentPage" :options="addonFilterOptions('Occasion')" category="Occasion"></ProductFilter>
-        <ProductFilter :page="currentPage" :options="addonFilterOptions('Type')" category="Type"></ProductFilter>
+        <ProductFilter :options="addonFilterOptions('Occasion')" category="Occasion"></ProductFilter>
+        <ProductFilter :options="addonFilterOptions('Type')" category="Type"></ProductFilter>
         <ul class="BuildABox__addon-products">
           <li v-for="product in addonProducts" :key="product.id">
             <AddonProduct :product="product"></AddonProduct>
@@ -19,7 +19,7 @@
         </ul>
       </div>
       <div v-if="currentPage == 3" class="BuildABox__page BuildABox__page--cardProducts">
-        <ProductFilter :page="currentPage" :options="cardFilterOptions('Occasion')" category="Occasion"></ProductFilter>
+        <ProductFilter :options="cardFilterOptions('Occasion')" category="Occasion"></ProductFilter>
         <ul class="BuildABox__card-products">
           <li v-for="product in cardProducts" :key="product.id">
             <CardProduct :product="product"></CardProduct>
@@ -28,8 +28,8 @@
       </div>
     </div>
     <div class="BuildABox__sidebar">
-    <BuildSummary></BuildSummary>
-    <CartButton></CartButton>
+      <BuildSummary></BuildSummary>
+      <CartButton></CartButton>
     </div>
   </div>
 </template>

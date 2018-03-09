@@ -12,7 +12,10 @@ export default {
       selected:`${this.category}_all`
     }
   },
-  props:['options','page','category'],
+  props:{
+    options:Array,
+    category:String
+  },
   methods:{
     updateFilters(e){
       this.$store.commit('updateFilters', e.target.value );
