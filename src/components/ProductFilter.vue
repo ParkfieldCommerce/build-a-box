@@ -13,8 +13,14 @@ export default {
     }
   },
   props:{
-    options:Array,
-    category:String
+    options:{
+      type: Array,
+      required: true
+    },
+    category:{
+      type: String,
+      required: true
+    }
   },
   methods:{
     updateFilters(e){
