@@ -1,17 +1,17 @@
 <template>
   <div class="BuildSummary">
     <div class="BuildSummary__main-product">
-      {{mainProduct.title}}-{{mainProduct | getPrice}}
+      {{mainProduct.title}}-{{mainProduct | moneyFormat}}
     </div>
     <ul class="BuildSummary__addon-products">
       <li v-for="addon in addonProducts">
         {{addon.title}} - {{addon.quantity}}
-        {{addon | getPrice}}
+        {{addon | moneyFormat}}
         <button @click="removeAddon(addon)">x</button>
       </li>
     </ul>
     <div class="BuildSummary__card-product">
-      {{cardProduct.title}} - {{cardProduct | getPrice}}
+      {{cardProduct.title}} - {{cardProduct | moneyFormat}}
       {{cardProduct.message}}
     </div>
     <div class="BuildSummary__total-price">{{totalBuildPrice}}</div>

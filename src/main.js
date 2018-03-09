@@ -5,6 +5,7 @@ import {polyfill} from 'es6-promise';
 polyfill();
 
 Vue.filter('filterValue', option => {
+  //Used to split the filter tag and just get the avalue
   return option.split('_').pop();
 });
 
@@ -12,7 +13,7 @@ Vue.filter('getProductImage', product => {
   return product.images[0].src;
 });
 
-Vue.filter('getPrice', product => {
+Vue.filter('moneyFormat', product => {
   if(product.variants){
     return `$${product.variants[0].price}`
   }

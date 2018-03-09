@@ -24,7 +24,6 @@ let mutations = {
     }
     if(!found){
       Vue.set(payload.product,'quantity',payload.quantity);
-      //payload.product.quantity = payload.quantity;
       state.selectedAddonProducts.push(payload.product);
     }
   },
@@ -46,7 +45,7 @@ let mutations = {
   },
 
   updateFilters(state, payload){
-    //If the category already exists, this finds and removes it
+    //If the category already exists, this finds and removes it from the filters array
     let category = payload.split('_').shift();
     let existingIndex = state.selectedFilters.findIndex( filter => {
       return filter.indexOf(category) > -1;
