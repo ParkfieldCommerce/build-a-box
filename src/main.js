@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import store from './store/store'
 import {polyfill} from 'es6-promise';
+import style from './assets/app.scss';
 polyfill();
 
 Vue.filter('filterValue', option => {

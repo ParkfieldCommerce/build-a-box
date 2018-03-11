@@ -1,7 +1,6 @@
 <template>
   <div class="Product Product--main" :class="isSelected ? 'Product--selected' : ''">
     <img class="Product__image" :src="product | getProductImage">
-    <p class="Product__title">{{product.title}}</p>
     <button class="Product__button" @click="selectProduct">{{buttonActionText}}</button>
   </div>
 </template>
@@ -12,11 +11,11 @@ export default {
     product:Object
   },
   computed:{
-    buttonActionText(){
-      return this.$store.getters.isSelectedMainProduct(this.product) ? 'Remove' : 'Select Bag';
-    },
     isSelected(){
       return this.$store.getters.isSelectedMainProduct(this.product);
+    },
+    buttonActionText(){
+      return this.$store.getters.isSelectedMainProduct(this.product) ? 'Selected' : 'Start Building';
     }
   },
   methods:{
@@ -26,6 +25,7 @@ export default {
       }else{
         this.$store.commit('updateSelectedMainProduct',this.product);
       }
+      this.$emit('updatePage', 2);
     }
   }
 };

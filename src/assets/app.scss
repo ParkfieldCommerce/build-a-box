@@ -1,0 +1,100 @@
+$accent-color: #2196F3;
+img{
+  max-width: 100%;
+}
+li,
+ul{
+  list-style: none;
+  padding: 0px;
+  margin: 0px;
+}
+
+.container{
+  max-width: 90%;
+  margin:  0 auto;
+}
+.BuildABox{
+  display: flex;
+  flex-flow: row wrap;
+  &__main{
+    width: 80%;
+  }
+  &__sidebar{
+    width: 20%;
+  }
+  &__main-products{
+    display: flex;
+    flex-flow: row wrap;
+    li{
+      width: 50%;
+    }
+  }
+  &__addon-products,
+  &__card-products{
+    display: flex;
+    flex-flow: row wrap;
+    li{
+      width: 25%;
+    }
+  }
+}
+//Page Bar
+.PageBar{
+  width: 100%;
+  text-align: center;
+}
+.PageBar button{
+  font-size: 2.5rem;
+  background: transparent;
+  border: none;
+}
+.PageBar button.active{
+  color: #fd46ff;
+}
+//Product
+.Product{
+  text-align: center;
+  &__image{
+    margin: 0 auto;
+  }
+  &--selected{
+    img{border: 2px solid $accent-color;}
+  }
+  &__card-popup{
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    &__content{
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%,-50%);
+      z-index: 2;
+    }
+    &__overlay{
+      content:'';
+      display: block;
+      position: absolute;
+      z-index: 1;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      background-color: rgba(0,0,0,.3);
+    }
+  }
+}
+
+.Product--main{
+  position: relative;
+}
+.Product--main .Product{
+  &__button{
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}

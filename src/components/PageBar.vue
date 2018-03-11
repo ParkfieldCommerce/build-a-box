@@ -1,13 +1,13 @@
 <template>
   <div class="PageBar">
-    <button @click="updatePage(1)" :class="[currentpage >= 1 ? 'active' : '', {notActive: currentpage != 1}]">
-      1. Select Main Product
+    <button @click="updatePage(1)" :class="[currentpage == 1 ? 'active' : '']">
+      1. Pick a box
     </button>
-    <button @click="updatePage(2)" :class="[currentpage >= 2 ? 'active' : '', {notActive: currentpage != 2}]">
-      2. Select Addon Products
+    <button @click="updatePage(2)" :class="[currentpage == 2 ? 'active' : '']">
+      2. Fill with gifts
     </button>
-    <button @click="updatePage(3)" :class="[currentpage == 3 ? 'active' : '', {notActive: currentpage != 3}]">
-      3. Select & Write Card
+    <button @click="updatePage(3)" :class="[currentpage == 3 ? 'active' : '']">
+      3. Pick a card & write
     </button>
   </div>
 </template>
