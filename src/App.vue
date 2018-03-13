@@ -5,7 +5,7 @@
       <div v-if="currentPage == 1" class="BuildABox__page BuildABox__page--mainProducts">
         <ul class="BuildABox__main-products">
           <li v-for="product in mainProducts" :key="product.id">
-            <MainProduct :product="product" @updatePage="changePage($event)"></MainProduct>
+            <MainProduct :product="product"></MainProduct>
           </li>
         </ul>
       </div>

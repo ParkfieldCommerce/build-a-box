@@ -1,8 +1,10 @@
 <template>
   <div class="Product Product--card" :class="isSelected ? 'Product--selected' : ''">
-    <img class="Product__image" :src="product | getProductImage">
+    <div class="Product__image-container">
+      <img class="Product__image" :src="product | getProductImage">
+      <button class="Product__button" @click="selectProduct">{{buttonActionText}}</button>
+    </div>
     <p class="Product__title">{{product.title}}</p>
-    <button class="Product__button" @click="selectProduct">{{buttonActionText}}</button>
     <div v-if="popupIsActive" class="Product__card-popup">
       <span class="Product__card-popup__overlay" @click="closePopup"></span>
       <div class="Product__card-popup__content">

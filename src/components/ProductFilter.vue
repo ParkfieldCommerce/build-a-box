@@ -1,8 +1,10 @@
 <template>
+  <div class="Filter__wrapper">
   <select v-model="selected" class="Filter" @change="updateFilters">
     <option :value="category+'_all'" selected>All {{category}}s</option>
     <option v-for="option in options" :value="option">{{option | filterValue}}</option>
   </select>
+  </div>
 </template>
 
 <script>

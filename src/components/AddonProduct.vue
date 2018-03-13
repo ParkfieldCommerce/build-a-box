@@ -1,13 +1,18 @@
 <template>
   <div class="Product Product--addon" :class="isSelected ? 'Product--selected' : ''">
-    <img class="Product__image" :src="product | getProductImage">
-    <p class="Product__title">{{product.title}}</p>
-    <button class="Product__button" @click="selectProduct">{{buttonActionText}}</button>
-    <div class="Product__quantity">
-      <button class="Product__quantity-btn" @click="updateQuantity(true)">+</button>
-      <span class="Product__quantity-value">{{quantity}}</span>
-      <button class="Product__quantity-btn" @click="updateQuantity(false)">-</button>
+    <div class="Product__image-container">
+      <span class="Product__quantity-added" v-show="product.quantity > 0">{{quantityAdded}}</span>
+      <img class="Product__image" :src="product | getProductImage">
+      <div class="Product__button-container">
+        <button class="Product__button" @click="selectProduct">{{buttonActionText}}</button>
+        <div class="Product__quantity">
+          <button class="Product__quantity-btn" @click="updateQuantity(true)">+</button>
+          <span class="Product__quantity-value">{{quantity}}</span>
+          <button class="Product__quantity-btn" @click="updateQuantity(false)">-</button>
+        </div>
+      </div>
     </div>
+    <p class="Product__title">{{product.title}}</p>
   </div>
 </template>
 
@@ -23,11 +28,16 @@ export default {
     product:Object
   },
   computed:{
+    quantityAdded(){
+      if(this.product.quantity > 0){
+        return this.product.quantity;
+      }
+    },
     isSelected(){
       return this.$store.getters.isSelectedAddonProduct(this.product);
     },
     buttonActionText(){
-      return this.added ? 'Added' : 'Add';
+      return this.added ? 'Added' : 'Add to Bag';
     }
   },
   methods:{

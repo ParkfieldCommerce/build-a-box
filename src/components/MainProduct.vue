@@ -25,7 +25,6 @@ export default {
       }else{
         this.$store.commit('updateSelectedMainProduct',this.product);
       }
-      this.$emit('updatePage', 2);
     }
   }
 };

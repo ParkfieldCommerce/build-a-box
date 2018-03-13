@@ -34,6 +34,7 @@ let mutations = {
     if(payload.quantity > 1){
       state.selectedAddonProducts[indexToUpdate].quantity = payload.quantity -1;
     }else{
+      state.selectedAddonProducts[indexToUpdate].quantity = 0;
       state.selectedAddonProducts.splice(indexToUpdate, 1);
     }
   },

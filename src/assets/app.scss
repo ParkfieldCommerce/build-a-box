@@ -1,4 +1,4 @@
-$accent-color: #2196F3;
+$accent-color: #fd46ff;
 img{
   max-width: 100%;
 }
@@ -26,6 +26,7 @@ ul{
     display: flex;
     flex-flow: row wrap;
     li{
+      text-align: center;
       width: 50%;
     }
   }
@@ -34,6 +35,7 @@ ul{
     display: flex;
     flex-flow: row wrap;
     li{
+      text-align: center;
       width: 25%;
     }
   }
@@ -49,16 +51,27 @@ ul{
   border: none;
 }
 .PageBar button.active{
-  color: #fd46ff;
+  color: $accent-color;
 }
+
 //Product
 .Product{
+  display: inline-block;
   text-align: center;
+  position: relative;
   &__image{
+    border: 2px solid transparent;
     margin: 0 auto;
   }
-  &--selected{
-    img{border: 2px solid $accent-color;}
+  &--selected .Product__image{
+    border: 2px solid $accent-color;
+  }
+  &__button{
+    background: white;
+    border: 1px solid black;
+    text-transform: uppercase;
+    padding: 10px 20px;
+    min-width: 160px;
   }
   &__card-popup{
     position: fixed;
@@ -66,6 +79,7 @@ ul{
     left: 0;
     bottom: 0;
     right: 0;
+    z-index: 2;
     &__content{
       position: absolute;
       top: 50%;
@@ -93,8 +107,106 @@ ul{
 .Product--main .Product{
   &__button{
     position: absolute;
-    bottom: 10px;
+    bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
   }
+}
+.Product--addon .Product{
+  &__image{
+    vertical-align: middle;
+  }
+  &__button-container{
+    opacity: 0;
+    position: absolute;
+    bottom: 10px;
+    width: 220px;
+    max-width: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: opacity .3s;
+  }
+  &__button{
+    text-align: left;
+    width: 90%;
+  }
+  &__quantity-added{
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background-color: white;
+    border: 2px solid $accent-color;
+    border-radius: 30px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  &__quantity{
+    position: absolute;
+    right: 25px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  &__quantity-btn{
+    background: transparent;
+    border: none;
+  }
+  &__image-container{
+    position: relative;
+  }
+}
+.Product--addon{
+  &:hover{
+    .Product__button-container{
+      opacity: 1;
+    }
+  }
+}
+.Product--card .Product{
+  &__image-container{
+    position: relative;
+  }
+  &__button{
+    transition: opacity .3s;
+    opacity: 0;
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+.Product--card{
+  &:hover{
+    .Product__button{
+      opacity: 1;
+    }
+  }
+}
+//Filter
+.Filter__wrapper{
+  display: inline-block;
+  position: relative;
+  &:after{
+    position: absolute;
+    content:"\f107";
+    display: inline-block;
+    font-family: FontAwesome;
+    z-index: 1;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+}
+.Filter{
+  min-width: 140px;
+  position: relative;
+  z-index: 2;
+  border: 1px solid black;
+  border-radius: 0;
+  background: transparent;
+  height: 30px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
 }
