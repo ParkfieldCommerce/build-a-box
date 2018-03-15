@@ -8,13 +8,19 @@
     <div v-if="popupIsActive" class="Product__card-popup">
       <span class="Product__card-popup__overlay" @click="closePopup"></span>
       <div class="Product__card-popup__content">
-        <img class="Product__card-popup__image" :src="product | getProductImage">
-        <h3 class="Product__card-popup__heading">Write your card</h3>
-        <p class="Product__card-popup__body"></p>
-        <textarea v-if="!isBlank" v-model="message" name="message" cols="30" rows="5"></textarea>
-        <label for="BlankCard">Click here if you want your card blank</label>
-        <input name="BlankCard" type="checkbox" v-model="isBlank" @change="clearMessage"/>
-        <button @click="updateMessage">All Set</button>
+        <div class="Product__card-popup__image-container">
+          <img class="Product__card-popup__image" :src="product | getProductImage">
+        </div>
+        <div class="Product__card-popup__text">
+          <h3 class="Product__card-popup__heading">Write your card</h3>
+          <p class="Product__card-popup__body">Your message will be handwritten by our team. Please make sure you wrote everything as you'd like it to appear!</p>
+          <textarea v-if="!isBlank" v-model="message" name="message" cols="30" rows="5"></textarea>
+          <div class="Product__card-popup__input-container">
+            <input name="BlankCard" type="checkbox" v-model="isBlank" @change="clearMessage"/>
+            <label for="BlankCard">Click here if you want your card blank</label>
+          </div>
+          <button @click="updateMessage">All Set</button>
+        </div>
       </div>
     </div>
   </div>

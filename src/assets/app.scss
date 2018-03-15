@@ -1,4 +1,13 @@
 $accent-color: #fd46ff;
+$laptop: 1440px;
+$tablet: 1000px;
+$mobile: 750px;
+@mixin maxQuery($resolution){
+  @media screen and (max-width: $resolution){
+    @content;
+  }
+}
+
 img{
   max-width: 100%;
 }
@@ -21,6 +30,7 @@ ul{
   }
   &__sidebar{
     width: 20%;
+    position: relative;
   }
   &__main-products{
     display: flex;
@@ -29,19 +39,54 @@ ul{
       text-align: center;
       width: 50%;
     }
+    @include maxQuery($mobile){
+      li{width: 100%;}
+    }
   }
   &__addon-products,
   &__card-products{
     display: flex;
     flex-flow: row wrap;
     li{
-      text-align: center;
-      width: 25%;
+      text-align: left;
+      width: 20%;
     }
   }
 }
+@include maxQuery($laptop){
+ .BuildABox{
+    &__addon-products,
+    &__card-products{
+      li{width: 33.333%;}
+    }  
+  } 
+}
+@include maxQuery($tablet){
+  .BuildABox{
+    &__addon-products,
+    &__card-products{
+      li{width: 50%;}
+    }  
+  }
+}
+@include maxQuery($mobile){
+  .BuildABox{
+    &__main{
+      width: 100%;
+    }
+    &__sidebar{
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+  }
+}
+.BuildABox__main-product-page .BuildABox__main{
+  width: 100%;
+}
 //Page Bar
 .PageBar{
+  margin-bottom: 30px;
   width: 100%;
   text-align: center;
 }
@@ -72,6 +117,10 @@ ul{
     text-transform: uppercase;
     padding: 10px 20px;
     min-width: 160px;
+    transition: color .3s;
+    &:hover{
+      color: $accent-color;
+    }
   }
   &__card-popup{
     position: fixed;
@@ -96,20 +145,39 @@ ul{
       left: 0;
       bottom: 0;
       right: 0;
-      background-color: rgba(0,0,0,.3);
+      background-color: rgba(0,0,0,.65);
     }
   }
 }
 
 .Product--main{
   position: relative;
+  width: 100%;
 }
 .Product--main .Product{
+  &__image{
+    width: 50%;
+  }
   &__button{
     position: absolute;
     bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
+  }
+  @include maxQuery($tablet){
+    &__image{width: 90%;}
+  }
+}
+
+.Product--addon{
+  display: inline-block;
+  text-align: center;
+  max-width: 250px;
+  margin-right: 20px;
+  &:hover{
+    .Product__button-container{
+      opacity: 1;
+    }
   }
 }
 .Product--addon .Product{
@@ -133,7 +201,7 @@ ul{
   &__quantity-added{
     position: absolute;
     top: -10px;
-    right: -10px;
+    right: -20px;
     background-color: white;
     border: 2px solid $accent-color;
     border-radius: 30px;
@@ -155,11 +223,17 @@ ul{
   }
   &__image-container{
     position: relative;
+    display: inline-block;
   }
 }
-.Product--addon{
+
+.Product--card{
+  display: inline-block;
+  text-align: center;
+  max-width: 250px;
+  margin-right: 20px;
   &:hover{
-    .Product__button-container{
+    .Product__button{
       opacity: 1;
     }
   }
@@ -177,17 +251,51 @@ ul{
     transform: translateX(-50%);
   }
 }
-.Product--card{
-  &:hover{
-    .Product__button{
-      opacity: 1;
+.Product--card .Product__card-popup{
+  &__content{
+    display: flex;
+    flex-flow: row wrap;
+    width: 900px;
+    max-width: 100%;
+    justify-content: space-between;
+  }
+  &__image-container{
+    width: 40%;
+  }
+  &__text{
+    padding: 15px;
+    width: 55%;
+    background-color: #F9F9F9;
+    text-align: left;
+  }
+  &__input-container{
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  textarea{
+    width: 100%;
+  }
+  @include maxQuery($tablet){
+    &__content{
+      flex-direction: column-reverse;
+    }
+    &__image-container{
+      display: none;
+      width: 100%;
+    }
+    &__text{
+      width: 80%;
+      margin-left: auto;
+      margin-right: auto;
     }
   }
 }
+
 //Filter
 .Filter__wrapper{
   display: inline-block;
   position: relative;
+  margin-bottom: 30px;
   &:after{
     position: absolute;
     content:"\f107";
@@ -209,4 +317,23 @@ ul{
   height: 30px;
   -webkit-appearance: none;
   -moz-appearance: none;
+}
+
+//Build Summary
+.BuildSummary{
+  width: 100%;
+  position: sticky;
+  top: 20px;
+  &__change-button{
+    background-color: black;
+    color: white;
+    text-transform: uppercase;
+    border: none;
+    width: 100%;
+    padding: 7px 10px;
+    span{
+      display: inline-block;
+      margin-left: 5px;
+    }
+  }
 }

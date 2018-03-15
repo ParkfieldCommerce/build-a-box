@@ -1,5 +1,5 @@
 <template>
-  <div class="BuildABox">
+  <div class="BuildABox" :class="pageClass">
     <PageBar @changepage="changePage($event)" :currentpage="currentPage"></PageBar>
     <div class="BuildABox__main">
       <div v-if="currentPage == 1" class="BuildABox__page BuildABox__page--mainProducts">
@@ -27,9 +27,8 @@
         </ul>
       </div>
     </div>
-    <div class="BuildABox__sidebar">
-      <BuildSummary></BuildSummary>
-      <CartButton></CartButton>
+    <div class="BuildABox__sidebar" v-if="currentPage > 1">
+      <BuildSummary @changepage="changePage($event)"></BuildSummary>
     </div>
   </div>
 </template>
@@ -41,7 +40,6 @@ import CardProduct from './components/CardProduct.vue'
 import MainProduct from './components/MainProduct.vue'
 import PageBar from './components/PageBar.vue'
 import ProductFilter from './components/ProductFilter.vue'
-import CartButton from './components/CartButton.vue'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -51,8 +49,7 @@ export default {
     CardProduct,
     MainProduct,
     PageBar,
-    ProductFilter,
-    CartButton
+    ProductFilter
   },
   data () {
     return {
@@ -66,7 +63,16 @@ export default {
     ...mapGetters([
       'addonProducts',
       'cardProducts'
-    ])
+    ]),
+    pageClass(){
+      if(this.currentPage === 1){
+        return 'BuildABox__main-product-page'
+      }else if(this.currentPage == 2){
+        return 'BuildABox__addon-product-page'
+      }else{
+        return 'BuildABox__card-product-page'
+      }
+    }
   },
   methods:{
     changePage(page){
