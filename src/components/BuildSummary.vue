@@ -1,6 +1,11 @@
 <template>
   <div class="BuildSummary">
     <div>Your Happy Box</div>
+    <div class="BuildSummary__fill-meter">
+      <div class="BuildSummary__fill-amount" :style="{width: buildCapacity + '%'}">
+      </div>
+      <div class="BuildSummary__fill-text">{{fillAmountText}}</div>
+    </div>
     <div class="BuildSummary__total-price">{{totalBuildPrice}}</div>
     <CartButton></CartButton>
     <button class="BuildSummary__change-button" @click="updatePage(1)">
@@ -44,6 +49,11 @@
 <script>
 import CartButton from './CartButton';
 export default {
+  data(){
+    return{
+      fillAmountText: 0
+    }
+  },
   computed:{
     mainProduct(){
       return this.$store.state.selectedMainProduct;
@@ -56,6 +66,31 @@ export default {
     },
     totalBuildPrice(){
       return this.$store.getters.totalBuildPrice;
+    },
+    buildCapacity(){
+      let maxCapacity = parseInt(this.mainProduct.variants[0].option1);
+      if(this.$store.state.selectedAddonProducts.length > 0){
+        var currentCapacity = 0;
+        this.$store.state.selectedAddonProducts.forEach( addon => {
+          let capacityTag = addon.tags.find( tag => {
+            return tag.indexOf('capacity_') > -1;
+          });
+          let capacity = parseInt(capacityTag.split('_')[1]);
+          let quantity = addon.quantity;
+          currentCapacity += capacity * quantity;
+        })
+      }
+      if(!currentCapacity){
+        currentCapacity = 0;
+      }
+      if(currentCapacity > maxCapacity){
+        this.fillAmountText = 'Overfull'
+      }else if(currentCapacity == maxCapacity){
+        this.fillAmountText = 'Full'
+      }else{
+        this.fillAmountText = (currentCapacity/maxCapacity)*100 + '%';
+      }
+      return (currentCapacity/maxCapacity)*100;
     }
   },
   components:{

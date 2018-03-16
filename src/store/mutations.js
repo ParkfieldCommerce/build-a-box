@@ -44,7 +44,6 @@ let mutations = {
   updateSelectedCardMessage(state,payload){
     Vue.set(state.selectedCardProduct,'message',payload);
   },
-
   updateFilters(state, payload){
     //If the category already exists, this finds and removes it from the filters array
     let category = payload.split('_').shift();
@@ -59,6 +58,9 @@ let mutations = {
   },
   clearFilters(state){
     state.selectedFilters = [];
+  },
+  updateBoxCapacity(state, payload){
+    state.boxInfo.capacity = payload;
   }
 };
 

@@ -21,6 +21,7 @@ ul{
 .container{
   max-width: 90%;
   margin:  0 auto;
+  margin-top: 50px;
 }
 .BuildABox{
   display: flex;
@@ -89,14 +90,27 @@ ul{
   margin-bottom: 30px;
   width: 100%;
   text-align: center;
+  position: fixed;
+  top: 0;
+  z-index: 3;
+  background-color: white;
+  &__button{
+    font-size: 2rem;
+    background: transparent;
+    border: none;
+  }
 }
-.PageBar button{
-  font-size: 2.5rem;
-  background: transparent;
-  border: none;
-}
-.PageBar button.active{
-  color: $accent-color;
+
+.PageBar__button{
+  &--enabled{
+    color: #4d4d4d;
+  }
+  &--disabled{
+    color: #dbdbdb;
+  }
+  &--active{
+    color: $accent-color;
+  }
 }
 
 //Product
@@ -193,10 +207,45 @@ ul{
     left: 50%;
     transform: translateX(-50%);
     transition: opacity .3s;
+    display: flex;
   }
-  &__button{
-    text-align: left;
+  &__button-container--active{
+    opacity: 1;
+    justify-content: center;
+  }
+  &__add-btn{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
     width: 90%;
+    background-color: white;
+    border: 1px solid black;
+    text-transform: uppercase;
+    padding: 5px 10px;
+    bottom: 0;
+  }
+  &__quantity{
+    background-color: white;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid black;
+  }
+  &__quantity-btn{
+    height: 25px;
+    width: 35px;
+    background-color: white;
+    border-top: none;
+    border-bottom: none;
+  }
+  &__quantity-btn:first-child{
+    border-right: 1px solid black;
+    border-left: none;
+  }
+  &__quantity-btn:last-child{
+    border-left: 1px solid black;
+    border-right: none;
   }
   &__quantity-added{
     position: absolute;
@@ -210,16 +259,6 @@ ul{
     display: flex;
     align-items: center;
     justify-content: center;
-  }
-  &__quantity{
-    position: absolute;
-    right: 25px;
-    top: 50%;
-    transform: translateY(-50%);
-  }
-  &__quantity-btn{
-    background: transparent;
-    border: none;
   }
   &__image-container{
     position: relative;
@@ -323,9 +362,31 @@ ul{
 .BuildSummary{
   width: 100%;
   position: sticky;
-  top: 20px;
+  top: 40px;
   background-color: #F9F9F9;
   padding: 10px;
+  &__fill-meter{
+    height: 20px;
+    width: 100%;
+    border: 1px solid black;
+    border-radius: 10px;
+    position: relative;
+    text-align: center;
+  }
+  &__fill-amount{
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    background-color: $accent-color;
+    border-radius: 10px;
+    max-width: 100%;
+  }
+  &__fill-text{
+    position: absolute;
+    z-index: 2;
+    width: 100%;
+  }
   &__change-button{
     background-color: black;
     color: white;

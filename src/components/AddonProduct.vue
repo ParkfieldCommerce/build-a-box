@@ -3,12 +3,18 @@
     <div class="Product__image-container">
       <span class="Product__quantity-added" v-show="product.quantity > 0">{{quantityAdded}}</span>
       <img class="Product__image" :src="product | getProductImage">
-      <div class="Product__button-container">
-        <button class="Product__button" @click="selectProduct">{{buttonActionText}}</button>
-        <div class="Product__quantity">
-          <button class="Product__quantity-btn" @click="updateQuantity(true)">+</button>
-          <span class="Product__quantity-value">{{quantity}}</span>
-          <button class="Product__quantity-btn" @click="updateQuantity(false)">-</button>
+      <div v-if="quantityAdded">
+        <div class="Product__button-container Product__button-container--active">
+          <div class="Product__quantity">
+            <button class="Product__quantity-btn" @click="updateCartQuantity(true)">+</button>
+            <span class="Product__quantity-status">{{product.quantity}} in box</span>
+            <button class="Product__quantity-btn" @click="updateCartQuantity(false)">-</button>
+          </div>
+        </div>
+      </div>
+      <div v-else>
+        <div class="Product__button-container">
+          <button class="Product__add-btn" @click="updateCartQuantity(true)">Add to Box</button>
         </div>
       </div>
     </div>
@@ -20,8 +26,7 @@
 export default {
   data(){
     return{
-      added: false,
-      quantity: 1
+      added: false
     }
   },
   props:{
@@ -35,26 +40,17 @@ export default {
     },
     isSelected(){
       return this.$store.getters.isSelectedAddonProduct(this.product);
-    },
-    buttonActionText(){
-      return this.added ? 'Added' : 'Add to Bag';
     }
   },
   methods:{
     selectProduct(){
-      this.$store.commit('updateSelectedAddonProducts',{product: this.product, quantity: parseInt(this.quantity) });
-      this.added = true;
-      setTimeout(()=>{
-        this.added = false;
-      },1500);
+      this.$store.commit('updateSelectedAddonProducts',{product: this.product, quantity: 1});
     },
-    updateQuantity(increment){
+    updateCartQuantity(increment){
       if(increment){
-        this.quantity += 1;
+        this.$store.commit('updateSelectedAddonProducts',{product: this.product, quantity: 1});
       }else{
-        if(this.quantity - 1 > 0){
-          this.quantity -= 1;
-        }
+        this.$store.commit('removeSelectedAddonProduct', this.product);
       }
     }
   }

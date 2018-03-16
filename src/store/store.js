@@ -15,7 +15,11 @@ const store = new Vuex.Store({
     selectedFilters:[],
     selectedMainProduct:{},
     selectedAddonProducts:[],
-    selectedCardProduct:{}
+    selectedCardProduct:{},
+    boxInfo:{
+      upgrade: false,
+      capacity: 0
+    }
   },
   getters,
   mutations,

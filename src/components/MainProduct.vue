@@ -24,6 +24,8 @@ export default {
         this.$store.commit('updateSelectedMainProduct',{});
       }else{
         this.$store.commit('updateSelectedMainProduct',this.product);
+        let capacity = parseInt(this.product.variants[0].option1);
+        this.$store.commit('updateBoxCapacity', capacity);
       }
     }
   }
