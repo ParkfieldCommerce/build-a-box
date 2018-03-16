@@ -324,6 +324,8 @@ ul{
   width: 100%;
   position: sticky;
   top: 20px;
+  background-color: #F9F9F9;
+  padding: 10px;
   &__change-button{
     background-color: black;
     color: white;
@@ -334,6 +336,45 @@ ul{
     span{
       display: inline-block;
       margin-left: 5px;
+    }
+  }
+  &__product{
+    display: flex;
+    background-color: white;
+    margin-bottom: 10px;
+    padding: 10px;
+    position: relative;
+  }
+  &__product-image{
+    width: 25%;
+  }
+  &__product-text{
+    width: 75%;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  &__product-remove{
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background-color: black;
+    border-radius: 25px;
+    width: 25px;
+    height: 25px;
+    color: white;
+    border: none;
+    &:hover{
+      cursor: pointer;
+    }
+    .fa-times-thin{
+      position: absolute;
+      font-size: 14px;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%,-50%);
+    }
+    .fa-times-thin:before {
+      content: '\00d7';
     }
   }
 }

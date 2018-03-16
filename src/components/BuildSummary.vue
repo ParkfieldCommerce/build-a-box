@@ -1,35 +1,43 @@
 <template>
   <div class="BuildSummary">
+    <div>Your Happy Box</div>
+    <div class="BuildSummary__total-price">{{totalBuildPrice}}</div>
+    <CartButton></CartButton>
+    <button class="BuildSummary__change-button" @click="updatePage(1)">
+      <i class="fa fa-angle-left"></i><span>Change Your Crate</span>
+    </button>
     <div class="BuildSummary__main-product">
-      <div>Your Happy Box</div>
-      <button class="BuildSummary__change-button" @click="updatePage(1)">
-        <i class="fa fa-angle-left"></i><span>Change Your Crate</span>
-      </button>
-      <div class="BuildSummary__product">
-        <img :src="mainProduct | getProductImage" alt="">
-        <span class="BuildSummary__product-title">{{mainProduct.title}}</span>
-        <span class="BuildSummary__product-size"></span>
-        <span class="BuildSummary__product-price">{{mainProduct |moneyFormat}}</span>
+      <div class="BuildSummary__product" v-if="itemExists(mainProduct)">
+        <img class="BuildSummary__product-image" :src="mainProduct | getProductImage" alt="">
+        <div class="BuildSummary__product-text">
+          <span class="BuildSummary__product-title">{{mainProduct.title}}</span>
+          <span class="BuildSummary__product-size"></span>
+          <span class="BuildSummary__product-price">{{mainProduct |moneyFormat}}</span>
+        </div>
       </div>
     </div>
-    <ul class="BuildSummary__addon-products">
+    <ul class="BuildSummary__addon-products" v-if="itemExists(addonProducts)">
       <li v-for="addon in addonProducts">
         <div class="BuildSummary__product">
-          <img :src="addon | getProductImage" alt="">
-          <span class="BuildSummary__product-title">{{addon.title}}({{addon.quantity}})</span>
-          <span class="BuildSummary__product-size"></span>
-          <span class="BuildSummary__product-price">{{addon | moneyFormat}}</span>
-          <button @click="removeAddon(addon)">x</button>
+          <img class="BuildSummary__product-image" :src="addon | getProductImage" alt="">
+          <div class="BuildSummary__product-text">
+            <span class="BuildSummary__product-title">{{addon.title}}({{addon.quantity}})</span>
+            <span class="BuildSummary__product-size"></span>
+            <span class="BuildSummary__product-price">{{addon | moneyFormat}}</span>
+          </div>
+          <button class="BuildSummary__product-remove" @click="removeAddon(addon)"><i class="fa fa-times-thin fa-2x" aria-hidden="true"></i></button>
         </div>
       </li>
     </ul>
-    <div class="BuildSummary__card-product">
-      <img :src="cardProduct | getProductImage" alt="">
-      {{cardProduct.title}} - {{cardProduct | moneyFormat}}
-      {{cardProduct.message}}
+    <div class="BuildSummary__card-product" v-if="itemExists(cardProduct)">
+      <div class="BuildSummary__product">
+        <img class="BuildSummary__product-image" :src="cardProduct | getProductImage" alt="">
+        <div class="BuildSummary__product-text">
+          {{cardProduct.title}} - {{cardProduct | moneyFormat}}
+          {{cardProduct.message}}
+        </div>
+      </div>
     </div>
-    <div class="BuildSummary__total-price">{{totalBuildPrice}}</div>
-    <CartButton></CartButton>
   </div>
 </template>
 
@@ -59,6 +67,19 @@ export default {
     },
     updatePage(pageNumber){
       this.$emit('changepage', pageNumber);
+    },
+    itemExists(product){
+      var pass = false;
+      if(Array.isArray(product)){
+        if(product.length > 0){
+          pass = true;
+        }
+      }else{
+        if(product.id != null){
+          pass = true;
+        }
+      }
+      return pass;
     }
   }
 };
