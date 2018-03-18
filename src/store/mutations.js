@@ -11,6 +11,8 @@ let mutations = {
     state.cardProducts = payload;
   },
   updateSelectedMainProduct(state,payload){
+    let capacity = parseInt(payload.variants[0].option1);
+    payload.capacity = capacity;
     state.selectedMainProduct = payload;
   },
   updateSelectedAddonProducts(state,payload){
@@ -58,9 +60,6 @@ let mutations = {
   },
   clearFilters(state){
     state.selectedFilters = [];
-  },
-  updateBoxCapacity(state, payload){
-    state.boxInfo.capacity = payload;
   }
 };
 
