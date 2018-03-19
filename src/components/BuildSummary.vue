@@ -16,7 +16,7 @@
         <img class="BuildSummary__product-image" :src="mainProduct | getProductImage" alt="">
         <div class="BuildSummary__product-text">
           <span class="BuildSummary__product-title">{{mainProduct.title}}</span>
-          <span class="BuildSummary__product-size"></span>
+          <span class="BuildSummary__product-size"></span><br>
           <span class="BuildSummary__product-price">{{mainProduct |moneyFormat}}</span>
         </div>
       </div>
@@ -26,8 +26,8 @@
         <div class="BuildSummary__product">
           <img class="BuildSummary__product-image" :src="addon | getProductImage" alt="">
           <div class="BuildSummary__product-text">
-            <span class="BuildSummary__product-title">{{addon.title}}({{addon.quantity}})</span>
-            <span class="BuildSummary__product-size"></span>
+            <span class="BuildSummary__product-title">{{addon.title}} <br>Qty: {{addon.quantity}}</span>
+            <span class="BuildSummary__product-size"></span><br>
             <span class="BuildSummary__product-price">{{addon | moneyFormat}}</span>
           </div>
           <button class="BuildSummary__product-remove" @click="removeAddon(addon)"><i class="fa fa-times-thin fa-2x" aria-hidden="true"></i></button>
@@ -68,10 +68,10 @@ export default {
       return this.$store.getters.totalBuildPrice;
     },
     buildCapacity(){
-      let maxCapacity = parseInt(this.mainProduct.variants[0].option1);
-      if(this.$store.state.selectedAddonProducts.length > 0){
+      let maxCapacity = this.mainProduct.maxCapacity;
+      if(this.addonProducts.length > 0){
         var currentCapacity = 0;
-        this.$store.state.selectedAddonProducts.forEach( addon => {
+        this.addonProducts.forEach( addon => {
           let capacityTag = addon.tags.find( tag => {
             return tag.indexOf('capacity_') > -1;
           });
@@ -79,8 +79,7 @@ export default {
           let quantity = addon.quantity;
           currentCapacity += capacity * quantity;
         })
-      }
-      if(!currentCapacity){
+      }else{
         currentCapacity = 0;
       }
       if(currentCapacity > maxCapacity){

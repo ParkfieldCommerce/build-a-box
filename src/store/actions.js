@@ -46,7 +46,14 @@ let actions = {
       });
 
       let addonProductList = totalProductList.filter(product =>{
-        return (product.product_type == ADDON_PRODUCT_TYPE && product.variants[0].available);
+        if(product.product_type == ADDON_PRODUCT_TYPE && product.variants[0].available){
+          let capacityTag = product.tags.find( tag => {
+            return tag.indexOf('capacity_') > -1;
+          });
+          let capacity = parseInt(capacityTag.split('_')[1]);
+          product.capacity = capacity;
+          return product;
+        }
       });
 
       let cardProductList = totalProductList.filter(product =>{

@@ -24,6 +24,7 @@ ul{
   margin-top: 50px;
 }
 .BuildABox{
+  font-size: 13px;
   display: flex;
   flex-flow: row wrap;
   &__main{
@@ -121,6 +122,9 @@ ul{
   &__image{
     border: 2px solid transparent;
     margin: 0 auto;
+  }
+  &--disabled .Product__image{
+    opacity: .25;
   }
   &--selected .Product__image{
     border: 2px solid $accent-color;
@@ -238,6 +242,10 @@ ul{
     background-color: white;
     border-top: none;
     border-bottom: none;
+  }
+  &__quantity-btn--disabled{
+    opacity: .3;
+    background-color: #FEFEFE;
   }
   &__quantity-btn:first-child{
     border-right: 1px solid black;
@@ -366,6 +374,7 @@ ul{
   background-color: #F9F9F9;
   padding: 10px;
   &__fill-meter{
+    background-color: white;
     height: 20px;
     width: 100%;
     border: 1px solid black;
@@ -446,4 +455,14 @@ ul{
   left: 0;
   width: 100%;
   z-index: 2;
+  background-color: #FCF4FF;
+  &__main-product{
+    display: none;
+  }
+  &__addon-products{
+    display: none;
+  }
+  &__card-product{
+    display: none;
+  }
 }
