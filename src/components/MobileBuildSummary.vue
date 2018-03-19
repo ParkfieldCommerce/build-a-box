@@ -1,44 +1,59 @@
 <template>
-  <div class="MobileBuildSummary">
+  <div class="MobileBuildSummary" :class="cartView ? 'MobileBuildSummary--active' : ''">
+    <div class="MobileBuildSummary__total-price">
+      <span class="MobileBuildSummary__total-price-text">Subtotal: {{totalBuildPrice}}</span>
+      <button @click="cartView = !cartView" class="MobileBuildSummary__view-box">{{cartView ? 'Keep Building' : 'View Box'}}</button>
+    </div>
     <div class="MobileBuildSummary__fill-meter">
       <div class="MobileBuildSummary__fill-amount" :style="{width: buildCapacity + '%'}">
       </div>
       <div class="MobileBuildSummary__fill-text">{{fillAmountText}}</div>
     </div>
-    <div class="MobileBuildSummary__total-price">{{totalBuildPrice}}</div>
-    <CartButton></CartButton>
-    <button class="MobileBuildSummary__change-button" @click="updatePage(1)">
-      <i class="fa fa-angle-left"></i><span>Change Your Crate</span>
-    </button>
-    <div class="MobileBuildSummary__main-product">
-      <div class="MobileBuildSummary__product" v-if="itemExists(mainProduct)">
-        <img class="MobileBuildSummary__product-image" :src="mainProduct | getProductImage" alt="">
-        <div class="MobileBuildSummary__product-text">
-          <span class="MobileBuildSummary__product-title">{{mainProduct.title}}</span>
-          <span class="MobileBuildSummary__product-size"></span>
-          <span class="MobileBuildSummary__product-price">{{mainProduct |moneyFormat}}</span>
+    <div v-if="currentpage == 1 && !cartView" class="MobileBuildSummary__buttons">
+      <button v-if="hasMainProduct" class="MobileBuildSummary__page-button MobileBuildSummary__page-button--next" @click="updatePage(2)">Next</button>
+      <button v-else class="MobileBuildSummary__page-button MobileBuildSummary__page-button--info">Choose Box</button>
+    </div>
+    <div v-else-if="currentpage == 2 && !cartView" class="MobileBuildSummary__buttons">
+      <button class="MobileBuildSummary__page-button MobileBuildSummary__page-button--prev" @click="updatePage(1)">Back</button>
+      <button v-if="hasAddonProduct" class="MobileBuildSummary__page-button MobileBuildSummary__page-button--next" @click="updatePage(3)">Next</button>
+      <button v-else class="MobileBuildSummary__page-button MobileBuildSummary__page-button--info">Choose Gifts</button>
+    </div>
+    <div v-else-if="currentpage == 3 && !cartView" class="MobileBuildSummary__buttons">        
+      <button class="MobileBuildSummary__page-button MobileBuildSummary__page-button--prev" @click="updatePage(2)">Back</button>
+      <CartButton v-if="hasCardProduct"></CartButton>
+      <button v-else class="MobileBuildSummary__page-button MobileBuildSummary__page-button--info">Choose a Card</button>
+    </div>
+    <div class="MobileBuildSummary__products">
+      <div class="MobileBuildSummary__main-product">
+        <div class="MobileBuildSummary__product" v-if="itemExists(mainProduct)">
+          <img class="MobileBuildSummary__product-image" :src="mainProduct | getProductImage" alt="">
+          <div class="MobileBuildSummary__product-text">
+            <span class="MobileBuildSummary__product-title">{{mainProduct.title}}</span>
+            <span class="MobileBuildSummary__product-size"></span><br>
+            <span class="MobileBuildSummary__product-price">{{mainProduct |moneyFormat}}</span>
+          </div>
         </div>
       </div>
-    </div>
-    <ul class="MobileBuildSummary__addon-products" v-if="itemExists(addonProducts)">
-      <li v-for="addon in addonProducts">
-        <div class="MobileBuildSummary__product">
-          <img class="MobileBuildSummary__product-image" :src="addon | getProductImage" alt="">
-          <div class="MobileBuildSummary__product-text">
-            <span class="MobileBuildSummary__product-title">{{addon.title}}({{addon.quantity}})</span>
-            <span class="MobileBuildSummary__product-size"></span>
-            <span class="MobileBuildSummary__product-price">{{addon | moneyFormat}}</span>
+      <ul class="MobileBuildSummary__addon-products" v-if="itemExists(addonProducts)">
+        <li v-for="addon in addonProducts">
+          <div class="MobileBuildSummary__product">
+            <img class="MobileBuildSummary__product-image" :src="addon | getProductImage" alt="">
+            <div class="MobileBuildSummary__product-text">
+              <span class="MobileBuildSummary__product-title">{{addon.title}} <br>Qty: {{addon.quantity}}</span>
+              <span class="MobileBuildSummary__product-size"></span><br>
+              <span class="MobileBuildSummary__product-price">{{addon | moneyFormat}}</span>
+            </div>
+            <button class="MobileBuildSummary__product-remove" @click="removeAddon(addon)">Remove</button>
           </div>
-          <button class="MobileBuildSummary__product-remove" @click="removeAddon(addon)"><i class="fa fa-times-thin fa-2x" aria-hidden="true"></i></button>
-        </div>
-      </li>
-    </ul>
-    <div class="MobileBuildSummary__card-product" v-if="itemExists(cardProduct)">
-      <div class="MobileBuildSummary__product">
-        <img class="MobileBuildSummary__product-image" :src="cardProduct | getProductImage" alt="">
-        <div class="MobileBuildSummary__product-text">
-          {{cardProduct.title}} - {{cardProduct | moneyFormat}}
-          {{cardProduct.message}}
+        </li>
+      </ul>
+      <div class="MobileBuildSummary__card-product" v-if="itemExists(cardProduct)">
+        <div class="MobileBuildSummary__product">
+          <img class="MobileBuildSummary__product-image" :src="cardProduct | getProductImage" alt="">
+          <div class="MobileBuildSummary__product-text">
+            {{cardProduct.title}} - {{cardProduct | moneyFormat}}
+            {{cardProduct.message}}
+          </div>
         </div>
       </div>
     </div>
@@ -48,9 +63,13 @@
 <script>
 import CartButton from './CartButton';
 export default {
+  props:{
+    currentpage: Number
+  },
   data(){
     return{
-      fillAmountText: 0
+      fillAmountText: 0,
+      cartView: false
     }
   },
   computed:{
@@ -63,17 +82,26 @@ export default {
     cardProduct(){
       return this.$store.state.selectedCardProduct;
     },
+    hasMainProduct(){
+      return this.$store.state.selectedMainProduct.id !== undefined;
+    },
+    hasAddonProduct(){
+      return this.$store.state.selectedAddonProducts.length > 0;
+    },
+    hasCardProduct(){
+      return this.$store.state.selectedCardProduct.id !== undefined;
+    },
     totalBuildPrice(){
       return this.$store.getters.totalBuildPrice;
     },
     buildCapacity(){
-      if(!this.mainProduct.variants){
-        return false;
+      let maxCapacity = this.mainProduct.maxCapacity;
+      if(this.mainProduct.maxCapacity == undefined){
+        maxCapacity = 1;
       }
-      let maxCapacity = parseInt(this.mainProduct.variants[0].option1);
-      if(this.$store.state.selectedAddonProducts.length > 0){
+      if(this.addonProducts.length > 0){
         var currentCapacity = 0;
-        this.$store.state.selectedAddonProducts.forEach( addon => {
+        this.addonProducts.forEach( addon => {
           let capacityTag = addon.tags.find( tag => {
             return tag.indexOf('capacity_') > -1;
           });
@@ -81,8 +109,7 @@ export default {
           let quantity = addon.quantity;
           currentCapacity += capacity * quantity;
         })
-      }
-      if(!currentCapacity){
+      }else{
         currentCapacity = 0;
       }
       if(currentCapacity > maxCapacity){
@@ -90,7 +117,7 @@ export default {
       }else if(currentCapacity == maxCapacity){
         this.fillAmountText = 'Full'
       }else{
-        this.fillAmountText = (currentCapacity/maxCapacity)*100 + '%';
+        this.fillAmountText = (currentCapacity/maxCapacity)*100 + '% full';
       }
       return (currentCapacity/maxCapacity)*100;
     }
@@ -103,7 +130,15 @@ export default {
       this.$store.commit('removeSelectedAddonProduct', product);
     },
     updatePage(pageNumber){
-      this.$emit('changepage', pageNumber);
+      if(pageNumber == 1){
+        this.$emit('changepage', pageNumber);
+      }
+      if(pageNumber == 2 && this.hasMainProduct) {
+        this.$emit('changepage', pageNumber);
+      }
+      if(pageNumber == 3 && this.hasAddonProduct) {
+        this.$emit('changepage', pageNumber);
+      }
     },
     itemExists(product){
       var pass = false;

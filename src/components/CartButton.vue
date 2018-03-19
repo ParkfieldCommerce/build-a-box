@@ -1,5 +1,5 @@
 <template>
-  <button @click="addToCart">
+  <button class="MobileBuildSummary__page-button MobileBuildSummary__page-button--next" @click="addToCart">
     {{buttonActionText}}
   </button>
 </template>
@@ -15,7 +15,7 @@ export default {
   },
   computed:{
     buttonActionText(){
-      return this.isAdding ? 'Building...' : 'Build my Bundle';
+      return this.isAdding ? 'Building...' : 'Complete Happybox';
     }
   },
   methods:{
@@ -37,6 +37,7 @@ export default {
             console.log(err);
           });
         }else{
+          window.location.href = '/cart';
           console.log('all done');
         }
       }

@@ -42,7 +42,10 @@ let actions = {
 
     function sortFetchedProducts(totalProductList){
       let mainProductList = totalProductList.filter(product =>{
-        return (product.product_type == MAIN_PRODUCT_TYPE && product.variants[0].available);
+        if(product.product_type == MAIN_PRODUCT_TYPE && product.variants[0].available){
+          product.maxCapacity = parseInt(product.variants[0].option1);
+          return product;
+        }
       });
 
       let addonProductList = totalProductList.filter(product =>{

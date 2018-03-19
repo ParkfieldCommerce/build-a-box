@@ -1,15 +1,15 @@
 <template>
   <div class="Product Product--addon" :class="[isSelected ? 'Product--selected' : '', ableToAddMore ? '' : 'Product--disabled']">
+    <div class="Product__hover-container">
     <div class="Product__image-container">
       <span class="Product__quantity-added" v-show="product.quantity > 0">{{quantityAdded}}</span>
       <img class="Product__image" :src="product | getProductImage">
-      <div v-if="quantityAdded">
-        <div class="Product__button-container Product__button-container--active">
-          <div class="Product__quantity">
-            <button :class="ableToAddMore ? '': 'Product__quantity-btn--disabled'" class="Product__quantity-btn" @click="updateCartQuantity(true)">+</button>
-            <span class="Product__quantity-status">{{product.quantity}} in box</span>
-            <button class="Product__quantity-btn" @click="updateCartQuantity(false)">-</button>
-          </div>
+    </div>
+      <div v-if="quantityAdded" class="Product__button-container Product__button-container--active">
+        <div class="Product__quantity">
+          <button :class="ableToAddMore ? '': 'Product__quantity-btn--disabled'" class="Product__quantity-btn" @click="updateCartQuantity(true)">+</button>
+          <span class="Product__quantity-status">{{product.quantity}} in box</span>
+          <button class="Product__quantity-btn" @click="updateCartQuantity(false)">-</button>
         </div>
       </div>
       <div v-else>

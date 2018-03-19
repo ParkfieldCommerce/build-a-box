@@ -1,7 +1,9 @@
 <template>
   <div class="Product Product--card" :class="isSelected ? 'Product--selected' : ''">
-    <div class="Product__image-container">
-      <img class="Product__image" :src="product | getProductImage">
+    <div class="Product__hover-container">
+      <div class="Product__image-container">
+        <img class="Product__image" :src="product | getProductImage">
+      </div>
       <button class="Product__button" @click="selectProduct">{{buttonActionText}}</button>
     </div>
     <p class="Product__title">{{product.title}}</p>

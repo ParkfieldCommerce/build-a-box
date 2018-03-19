@@ -31,7 +31,7 @@
       <BuildSummary @changepage="changePage($event)"></BuildSummary>
     </div>
     <div class="BuildABox__mobile-summary">
-      <MobileBuildSummary></MobileBuildSummary>
+      <MobileBuildSummary @changepage="changePage($event)" :currentpage="currentPage"></MobileBuildSummary>
     </div>
   </div>
 </template>

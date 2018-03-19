@@ -7,7 +7,6 @@
       <div class="BuildSummary__fill-text">{{fillAmountText}}</div>
     </div>
     <div class="BuildSummary__total-price">{{totalBuildPrice}}</div>
-    <CartButton></CartButton>
     <button class="BuildSummary__change-button" @click="updatePage(1)">
       <i class="fa fa-angle-left"></i><span>Change Your Crate</span>
     </button>
