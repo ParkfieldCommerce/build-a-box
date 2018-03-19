@@ -1,0 +1,123 @@
+<template>
+  <div class="MobileBuildSummary">
+    <div class="MobileBuildSummary__fill-meter">
+      <div class="MobileBuildSummary__fill-amount" :style="{width: buildCapacity + '%'}">
+      </div>
+      <div class="MobileBuildSummary__fill-text">{{fillAmountText}}</div>
+    </div>
+    <div class="MobileBuildSummary__total-price">{{totalBuildPrice}}</div>
+    <CartButton></CartButton>
+    <button class="MobileBuildSummary__change-button" @click="updatePage(1)">
+      <i class="fa fa-angle-left"></i><span>Change Your Crate</span>
+    </button>
+    <div class="MobileBuildSummary__main-product">
+      <div class="MobileBuildSummary__product" v-if="itemExists(mainProduct)">
+        <img class="MobileBuildSummary__product-image" :src="mainProduct | getProductImage" alt="">
+        <div class="MobileBuildSummary__product-text">
+          <span class="MobileBuildSummary__product-title">{{mainProduct.title}}</span>
+          <span class="MobileBuildSummary__product-size"></span>
+          <span class="MobileBuildSummary__product-price">{{mainProduct |moneyFormat}}</span>
+        </div>
+      </div>
+    </div>
+    <ul class="MobileBuildSummary__addon-products" v-if="itemExists(addonProducts)">
+      <li v-for="addon in addonProducts">
+        <div class="MobileBuildSummary__product">
+          <img class="MobileBuildSummary__product-image" :src="addon | getProductImage" alt="">
+          <div class="MobileBuildSummary__product-text">
+            <span class="MobileBuildSummary__product-title">{{addon.title}}({{addon.quantity}})</span>
+            <span class="MobileBuildSummary__product-size"></span>
+            <span class="MobileBuildSummary__product-price">{{addon | moneyFormat}}</span>
+          </div>
+          <button class="MobileBuildSummary__product-remove" @click="removeAddon(addon)"><i class="fa fa-times-thin fa-2x" aria-hidden="true"></i></button>
+        </div>
+      </li>
+    </ul>
+    <div class="MobileBuildSummary__card-product" v-if="itemExists(cardProduct)">
+      <div class="MobileBuildSummary__product">
+        <img class="MobileBuildSummary__product-image" :src="cardProduct | getProductImage" alt="">
+        <div class="MobileBuildSummary__product-text">
+          {{cardProduct.title}} - {{cardProduct | moneyFormat}}
+          {{cardProduct.message}}
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import CartButton from './CartButton';
+export default {
+  data(){
+    return{
+      fillAmountText: 0
+    }
+  },
+  computed:{
+    mainProduct(){
+      return this.$store.state.selectedMainProduct;
+    },
+    addonProducts(){
+      return this.$store.state.selectedAddonProducts;
+    },
+    cardProduct(){
+      return this.$store.state.selectedCardProduct;
+    },
+    totalBuildPrice(){
+      return this.$store.getters.totalBuildPrice;
+    },
+    buildCapacity(){
+      if(!this.mainProduct.variants){
+        return false;
+      }
+      let maxCapacity = parseInt(this.mainProduct.variants[0].option1);
+      if(this.$store.state.selectedAddonProducts.length > 0){
+        var currentCapacity = 0;
+        this.$store.state.selectedAddonProducts.forEach( addon => {
+          let capacityTag = addon.tags.find( tag => {
+            return tag.indexOf('capacity_') > -1;
+          });
+          let capacity = parseInt(capacityTag.split('_')[1]);
+          let quantity = addon.quantity;
+          currentCapacity += capacity * quantity;
+        })
+      }
+      if(!currentCapacity){
+        currentCapacity = 0;
+      }
+      if(currentCapacity > maxCapacity){
+        this.fillAmountText = 'Overfull'
+      }else if(currentCapacity == maxCapacity){
+        this.fillAmountText = 'Full'
+      }else{
+        this.fillAmountText = (currentCapacity/maxCapacity)*100 + '%';
+      }
+      return (currentCapacity/maxCapacity)*100;
+    }
+  },
+  components:{
+    'CartButton':CartButton
+  },
+  methods:{
+    removeAddon(product){
+      this.$store.commit('removeSelectedAddonProduct', product);
+    },
+    updatePage(pageNumber){
+      this.$emit('changepage', pageNumber);
+    },
+    itemExists(product){
+      var pass = false;
+      if(Array.isArray(product)){
+        if(product.length > 0){
+          pass = true;
+        }
+      }else{
+        if(product.id != null){
+          pass = true;
+        }
+      }
+      return pass;
+    }
+  }
+};
+</script>

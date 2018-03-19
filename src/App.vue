@@ -30,6 +30,9 @@
     <div class="BuildABox__sidebar" v-if="currentPage > 1">
       <BuildSummary @changepage="changePage($event)"></BuildSummary>
     </div>
+    <div class="BuildABox__mobile-summary">
+      <MobileBuildSummary></MobileBuildSummary>
+    </div>
   </div>
 </template>
 
@@ -40,6 +43,7 @@ import CardProduct from './components/CardProduct.vue'
 import MainProduct from './components/MainProduct.vue'
 import PageBar from './components/PageBar.vue'
 import ProductFilter from './components/ProductFilter.vue'
+import MobileBuildSummary from './components/MobileBuildSummary.vue';
 import { mapGetters } from 'vuex'
 
 export default {
@@ -49,7 +53,8 @@ export default {
     CardProduct,
     MainProduct,
     PageBar,
-    ProductFilter
+    ProductFilter,
+    MobileBuildSummary
   },
   data () {
     return {

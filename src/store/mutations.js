@@ -11,8 +11,7 @@ let mutations = {
     state.cardProducts = payload;
   },
   updateSelectedMainProduct(state,payload){
-    let capacity = parseInt(payload.variants[0].option1);
-    payload.capacity = capacity;
+    payload.capacity = parseInt(payload.variants[0].option1);
     state.selectedMainProduct = payload;
   },
   updateSelectedAddonProducts(state,payload){
