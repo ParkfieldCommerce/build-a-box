@@ -15,7 +15,7 @@
             <ProductFilter :options="addonFilterOptions('Occasion')" category="Occasion"></ProductFilter>
             <ProductFilter :options="addonFilterOptions('Type')" category="Type"></ProductFilter>
           </div>
-          <div class="Filter__count">{{addonViewCount}}</div>
+          <span class="Filter__count">{{addonViewCount}}</span>
         </div>
         <ul class="BuildABox__addon-products">
           <li v-for="product in addonProducts" :key="product.id">
@@ -26,7 +26,7 @@
       <div v-if="currentPage == 3" class="BuildABox__page BuildABox__page--cardProducts">
         <div class="Filter__row">
           <ProductFilter :options="cardFilterOptions('Occasion')" category="Occasion"></ProductFilter>
-          <div class="Filter__count">{{cardViewCount}}</div>
+          <span class="Filter__count">{{cardViewCount}}</span>
         </div>
         <ul class="BuildABox__card-products">
           <li v-for="product in cardProducts" :key="product.id">
@@ -37,6 +37,7 @@
     </div>
     <div class="BuildABox__sidebar" v-if="currentPage > 1">
       <BuildSummary @changepage="changePage($event)"></BuildSummary>
+      <MoreProducts></MoreProducts>
     </div>
     <div class="BuildABox__mobile-summary">
       <MobileBuildSummary @changepage="changePage($event)" :currentpage="currentPage"></MobileBuildSummary>
@@ -52,6 +53,7 @@ import MainProduct from './components/MainProduct.vue'
 import PageBar from './components/PageBar.vue'
 import ProductFilter from './components/ProductFilter.vue'
 import MobileBuildSummary from './components/MobileBuildSummary.vue';
+import MoreProducts from './components/MoreProducts.vue';
 import { mapGetters } from 'vuex'
 
 export default {
@@ -62,7 +64,8 @@ export default {
     MainProduct,
     PageBar,
     ProductFilter,
-    MobileBuildSummary
+    MobileBuildSummary,
+    MoreProducts
   },
   data () {
     return {

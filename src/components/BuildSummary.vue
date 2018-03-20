@@ -1,6 +1,6 @@
 <template>
   <div class="BuildSummary">
-    <div>Your Happy Box</div>
+    <span class="BuildSummary__box-title">Your Happy Box</span>
     <div class="BuildSummary__fill-meter">
       <div class="BuildSummary__fill-amount" :style="{width: buildCapacity + '%'}">
       </div>
@@ -37,8 +37,9 @@
       <div class="BuildSummary__product">
         <img class="BuildSummary__product-image" :src="cardProduct | getProductImage" alt="">
         <div class="BuildSummary__product-text">
-          {{cardProduct.title}} - {{cardProduct | moneyFormat}}
-          {{cardProduct.message}}
+          <span class="BuildSummary__product-title">{{cardProduct.title}}</span><br>
+          <span class="BuildSummary__product-price">{{cardProduct | moneyFormat}}</span><br>
+          <span v-if="cardProduct.message != ''">Message: {{cardProduct.message}}</span>
         </div>
       </div>
     </div>
@@ -46,7 +47,6 @@
 </template>
 
 <script>
-import CartButton from './CartButton';
 export default {
   data(){
     return{
@@ -86,13 +86,10 @@ export default {
       }else if(currentCapacity == maxCapacity){
         this.fillAmountText = 'Full'
       }else{
-        this.fillAmountText = (currentCapacity/maxCapacity)*100 + '%';
+        this.fillAmountText = `${Math.floor((currentCapacity/maxCapacity)*100)} %`;
       }
       return (currentCapacity/maxCapacity)*100;
     }
-  },
-  components:{
-    'CartButton':CartButton
   },
   methods:{
     removeAddon(product){

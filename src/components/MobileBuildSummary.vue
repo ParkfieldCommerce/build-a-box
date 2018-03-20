@@ -20,7 +20,8 @@
     </div>
     <div v-else-if="currentpage == 3 && !cartView" class="MobileBuildSummary__buttons">        
       <button class="MobileBuildSummary__page-button MobileBuildSummary__page-button--prev" @click="updatePage(2)">Back</button>
-      <CartButton v-if="hasCardProduct"></CartButton>
+      <CartButton v-if="hasCardProduct && hasAddonProduct"></CartButton>
+      <button v-else-if="hasCardProduct && !hasAddonProduct" class="MobileBuildSummary__page-button MobileBuildSummary__page-button--next" @click="updatePage(2)">Choose Gifts</button>
       <button v-else class="MobileBuildSummary__page-button MobileBuildSummary__page-button--info">Choose a Card</button>
     </div>
     <div class="MobileBuildSummary__products">
@@ -51,8 +52,9 @@
         <div class="MobileBuildSummary__product">
           <img class="MobileBuildSummary__product-image" :src="cardProduct | getProductImage" alt="">
           <div class="MobileBuildSummary__product-text">
-            {{cardProduct.title}} - {{cardProduct | moneyFormat}}
-            {{cardProduct.message}}
+            <span class="MobileBuildSummary__product-title">{{cardProduct.title}}</span><br>
+            <span class="MobileBuildSummary__product-price">{{cardProduct | moneyFormat}}</span><br>
+            <span>Message: {{cardProduct.message}}</span>
           </div>
         </div>
       </div>
@@ -117,7 +119,7 @@ export default {
       }else if(currentCapacity == maxCapacity){
         this.fillAmountText = 'Full'
       }else{
-        this.fillAmountText = (currentCapacity/maxCapacity)*100 + '% full';
+        this.fillAmountText = `${Math.floor((currentCapacity/maxCapacity)*100)} %`;
       }
       return (currentCapacity/maxCapacity)*100;
     }
