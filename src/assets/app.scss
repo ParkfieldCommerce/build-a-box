@@ -370,6 +370,21 @@ select{
 }
 
 //Filter
+.Filter__row{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-flow: row wrap;
+}
+.Filter__count{
+  margin-right: 20px;
+  justify-self: end;
+  margin-bottom: 30px;
+  @include maxQuery($mobile){
+    margin-top: 10px;
+    margin-bottom: 20px;
+  }
+}
 .Filter__wrapper{
   display: inline-block;
   position: relative;
@@ -383,6 +398,9 @@ select{
     right: 10px;
     top: 50%;
     transform: translateY(-50%);
+  }
+  @include maxQuery($mobile){
+    margin-bottom: 0;
   }
 }
 .Filter{
@@ -547,7 +565,8 @@ select{
   }
   &__page-button--next{
     border-color: $accent-color;
-    color: $accent-color;
+    color: white;
+    background-color: $accent-color;
   }
   &__products{
     display: none;

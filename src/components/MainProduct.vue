@@ -20,9 +20,7 @@ export default {
   },
   methods:{
     selectProduct(){
-      if(this.$store.state.selectedMainProduct.id == this.product.id){
-        this.$store.commit('updateSelectedMainProduct',{});
-      }else{
+      if(this.$store.state.selectedMainProduct.id != this.product.id){
         this.$store.commit('updateSelectedMainProduct',this.product);
       }
     }

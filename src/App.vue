@@ -10,8 +10,13 @@
         </ul>
       </div>
       <div v-if="currentPage == 2" class="BuildABox__page BuildABox__page--addonProducts">
-        <ProductFilter :options="addonFilterOptions('Occasion')" category="Occasion"></ProductFilter>
-        <ProductFilter :options="addonFilterOptions('Type')" category="Type"></ProductFilter>
+        <div class="Filter__row">
+          <div class="Filter__filters">
+            <ProductFilter :options="addonFilterOptions('Occasion')" category="Occasion"></ProductFilter>
+            <ProductFilter :options="addonFilterOptions('Type')" category="Type"></ProductFilter>
+          </div>
+          <div class="Filter__count">{{addonViewCount}}</div>
+        </div>
         <ul class="BuildABox__addon-products">
           <li v-for="product in addonProducts" :key="product.id">
             <AddonProduct :product="product"></AddonProduct>
@@ -19,7 +24,10 @@
         </ul>
       </div>
       <div v-if="currentPage == 3" class="BuildABox__page BuildABox__page--cardProducts">
-        <ProductFilter :options="cardFilterOptions('Occasion')" category="Occasion"></ProductFilter>
+        <div class="Filter__row">
+          <ProductFilter :options="cardFilterOptions('Occasion')" category="Occasion"></ProductFilter>
+          <div class="Filter__count">{{cardViewCount}}</div>
+        </div>
         <ul class="BuildABox__card-products">
           <li v-for="product in cardProducts" :key="product.id">
             <CardProduct :product="product"></CardProduct>
@@ -62,13 +70,19 @@ export default {
     }
   },
   computed:{
-    mainProducts(){
-      return this.$store.state.mainProducts;
-    },
     ...mapGetters([
       'addonProducts',
       'cardProducts'
     ]),
+    mainProducts(){
+      return this.$store.state.mainProducts;
+    },
+    addonViewCount(){
+      return `Showing ${this.addonProducts.length} of ${this.$store.state.addonProducts.length}`;
+    },
+    cardViewCount(){
+      return `Showing ${this.cardProducts.length} of ${this.$store.state.cardProducts.length}`; 
+    },
     pageClass(){
       if(this.currentPage === 1){
         return 'BuildABox__main-product-page'
