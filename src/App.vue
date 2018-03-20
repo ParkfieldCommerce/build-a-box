@@ -96,6 +96,7 @@ export default {
   methods:{
     changePage(page){
       this.currentPage = page;
+      this.$store.commit('clearFilters');
     },
     addonFilterOptions(category){
       let addonProducts = this.$store.state.addonProducts;

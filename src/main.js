@@ -1,9 +1,9 @@
+import {polyfill} from 'es6-promise';
+polyfill();
 import Vue from 'vue'
 import App from './App.vue'
 import store from './store/store'
-import {polyfill} from 'es6-promise';
 import style from './assets/app.scss';
-polyfill();
 
 Vue.filter('filterValue', option => {
   //Used to split the filter tag and just get the avalue
@@ -20,7 +20,7 @@ Vue.filter('moneyFormat', product => {
   }
 });
 
-new Vue({
+var BuildABoxApp = new Vue({
   el: '#BuildABox',
   data:{
     currentPage:1
