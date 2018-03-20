@@ -342,6 +342,7 @@ select{
   &__image-container{
     position: relative;
     display: inline-block;
+    max-width: 100%;
   }
 }
 
@@ -751,6 +752,22 @@ select{
       flex: auto;
       max-width: initial;
       margin: 0;
+    }
+  }
+}
+
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+  .MobileBuildSummary {
+    &__total-price {
+      display: inline-block;
+      width: 29%;
+    }
+    &__fill-meter {
+      display: inline-block;
+    }
+    &__buttons {
+      display: inline-block;
+      text-align: right;
     }
   }
 }
