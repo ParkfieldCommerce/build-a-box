@@ -1,4 +1,4 @@
-$accent-color: #fd46ff;
+$accent-color: #faa1fe;
 $laptop: 1440px;
 $tablet: 1000px;
 $mobile: 750px;
@@ -7,7 +7,16 @@ $mobile: 750px;
     @content;
   }
 }
+@font-face {
+  font-family: 'AvenirBook';
+  src: url('https://cdn.shopify.com/s/files/1/3105/1134/files/AvenirLTStd-Book.otf?11377650510629736747');
+}
 
+button{
+  &:hover{
+    cursor: pointer;
+  }
+}
 img{
   max-width: 100%;
 }
@@ -28,9 +37,13 @@ select{
   }
 }
 .BuildABox{
-  font-size: 13px;
+  font-size: 14px;
+  font-family: 'AvenirBook';
   display: flex;
   flex-flow: row wrap;
+  p{
+    color: #3e3e3e;
+  }
   &__main{
     width: 80%;
   }
@@ -56,6 +69,7 @@ select{
     li{
       text-align: left;
       width: 20%;
+      margin-bottom: 20px;
     }
   }
 }
@@ -96,9 +110,21 @@ select{
   text-align: center;
   background-color: white;
   &__button{
+    display: inline-flex;
+    align-items: center;
     font-size: 1.5rem;
     background: transparent;
     border: none;
+    @include maxQuery($mobile){
+      font-size: 1.1rem;
+    }
+  }
+  &__image{
+    max-width: 100px;
+    max-height: 70px;
+    @include maxQuery($mobile){
+      display: none;
+    }
   }
 }
 
@@ -168,6 +194,12 @@ select{
       bottom: 0;
       right: 0;
       background-color: rgba(0,0,0,.65);
+    }
+    &__button{
+      border: 1px solid black;
+      background-color: white;
+      text-transform: uppercase;
+      padding: 10px 15px;
     }
   }
 }
@@ -381,6 +413,7 @@ select{
   justify-self: end;
   margin-bottom: 30px;
   @include maxQuery($mobile){
+    width: 100%;
     margin-top: 10px;
     margin-bottom: 20px;
   }
@@ -446,6 +479,9 @@ select{
     z-index: 2;
     width: 100%;
   }
+  &__total-price{
+    margin-bottom: 10px;
+  }
   &__change-button{
     background-color: black;
     color: white;
@@ -464,6 +500,7 @@ select{
     margin-bottom: 10px;
     padding: 10px;
     position: relative;
+    align-items: flex-start;
   }
   &__product-image{
     width: 25%;
@@ -472,6 +509,9 @@ select{
     width: 75%;
     padding-left: 10px;
     padding-right: 10px;
+  }
+  &__product-title{
+    font-weight: bold;
   }
   &__product-remove{
     position: absolute;
@@ -581,8 +621,11 @@ select{
     margin-bottom: 10px;
     padding: 10px;
     position: relative;
+    align-items: flex-start;
   }
-
+  &__product-title{
+    font-weight: bold;
+  }
   &__product-image{
     width: 26%;
   }

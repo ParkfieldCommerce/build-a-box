@@ -18,7 +18,7 @@
         </div>
       </div>
     </div>
-    <p class="Product__title">{{product.title}}</p>
+    <p class="Product__title">{{product.title}}<br>{{product | moneyFormat}}</p>
   </div>
 </template>
 

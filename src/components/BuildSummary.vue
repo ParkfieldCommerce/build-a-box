@@ -6,7 +6,7 @@
       </div>
       <div class="BuildSummary__fill-text">{{fillAmountText}}</div>
     </div>
-    <div class="BuildSummary__total-price">{{totalBuildPrice}}</div>
+    <div class="BuildSummary__total-price">Subtotal: {{totalBuildPrice}}</div>
     <button class="BuildSummary__change-button" @click="updatePage(1)">
       <i class="fa fa-angle-left"></i><span>Change Your Crate</span>
     </button>
@@ -25,8 +25,8 @@
         <div class="BuildSummary__product">
           <img class="BuildSummary__product-image" :src="addon | getProductImage" alt="">
           <div class="BuildSummary__product-text">
-            <span class="BuildSummary__product-title">{{addon.title}} <br>Qty: {{addon.quantity}}</span>
-            <span class="BuildSummary__product-size"></span><br>
+            <span class="BuildSummary__product-title">{{addon.title}}</span><br>
+            <span class="BuildSummary__product-size">Qty: {{addon.quantity}}</span><br>
             <span class="BuildSummary__product-price">{{addon | moneyFormat}}</span>
           </div>
           <button class="BuildSummary__product-remove" @click="removeAddon(addon)"><i class="fa fa-times-thin fa-2x" aria-hidden="true"></i></button>

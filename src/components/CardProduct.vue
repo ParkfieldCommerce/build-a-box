@@ -21,7 +21,7 @@
             <input name="BlankCard" type="checkbox" v-model="isBlank" @change="clearMessage"/>
             <label for="BlankCard">Click here if you want your card blank</label>
           </div>
-          <button @click="updateMessage">All Set</button>
+          <button class="Product__card-popup__button" @click="updateMessage">All Set</button>
         </div>
       </div>
     </div>

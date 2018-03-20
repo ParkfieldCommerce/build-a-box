@@ -78,10 +78,10 @@ export default {
       return this.$store.state.mainProducts;
     },
     addonViewCount(){
-      return `Showing ${this.addonProducts.length} of ${this.$store.state.addonProducts.length}`;
+      return `Showing ${this.addonProducts.length} gifts`;
     },
     cardViewCount(){
-      return `Showing ${this.cardProducts.length} of ${this.$store.state.cardProducts.length}`; 
+      return `Showing ${this.cardProducts.length} cards`; 
     },
     pageClass(){
       if(this.currentPage === 1){

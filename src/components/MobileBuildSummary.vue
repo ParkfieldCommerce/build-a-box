@@ -39,8 +39,8 @@
           <div class="MobileBuildSummary__product">
             <img class="MobileBuildSummary__product-image" :src="addon | getProductImage" alt="">
             <div class="MobileBuildSummary__product-text">
-              <span class="MobileBuildSummary__product-title">{{addon.title}} <br>Qty: {{addon.quantity}}</span>
-              <span class="MobileBuildSummary__product-size"></span><br>
+              <span class="MobileBuildSummary__product-title">{{addon.title}}</span><br>
+              <span class="MobileBuildSummary__product-size">Qty: {{addon.quantity}}</span><br>
               <span class="MobileBuildSummary__product-price">{{addon | moneyFormat}}</span>
             </div>
             <button class="MobileBuildSummary__product-remove" @click="removeAddon(addon)">Remove</button>
