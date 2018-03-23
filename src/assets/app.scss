@@ -1,7 +1,8 @@
 $accent-color: #faa1fe;
+$body-color: #3e3e3e;
 $laptop: 1440px;
 $tablet: 1000px;
-$mobile: 750px;
+$mobile: 765px;
 @mixin maxQuery($resolution){
   @media screen and (max-width: $resolution){
     @content;
@@ -41,17 +42,21 @@ select{
   display: flex;
   flex-flow: row wrap;
   margin-bottom: 100px;
+  @include maxQuery($mobile){
+    padding-left: 10px;
+    padding-right: 10px;
+  }
   p,h1,h2,h3,h4,h5, span, label,button,select{
     font-family: 'AvenirBook';
   }
   p{
-    color: #3e3e3e;
+    color: $body-color;
   }
   &__main{
-    width: 80%;
+    width: 88%;
   }
   &__sidebar{
-    width: 20%;
+    width: 12%;
     position: relative;
   }
   &__main-products{
@@ -60,9 +65,6 @@ select{
     li{
       text-align: center;
       width: 50%;
-    }
-    @include maxQuery($mobile){
-      li{width: 100%;}
     }
   }
   &__addon-products,
@@ -80,7 +82,7 @@ select{
  .BuildABox{
     &__addon-products,
     &__card-products{
-      li{width: 33.333%;}
+      li{width: 20%;}
     }  
   } 
 }
@@ -88,13 +90,17 @@ select{
   .BuildABox{
     &__addon-products,
     &__card-products{
-      li{width: 50%;}
+      li{width: 25%;}
     }  
   }
 }
 @include maxQuery($mobile){
   .BuildABox{
     margin-bottom: 200px;
+    &__addon-products,
+    &__card-products{
+      li{width: 50%;}
+    }
     &__main{
       width: 100%;
     }
@@ -107,31 +113,67 @@ select{
   width: 100%;
 }
 //Page Bar
+.PageBar__container{
+  width: 100%;
+}
 .PageBar{
-  margin-bottom: 30px;
   width: 100%;
   text-align: center;
   background-color: white;
+  position: relative;
+  &:after{
+    content:'';
+    display: block;
+    height: 2px;
+    width: 100%;
+    position: absolute;
+    transform: translateY(-50%);
+    top: 53px;
+    right: 0;
+    background-color: #4d4d4d;
+    z-index: 1;
+    transition: background-color .3s;
+  }
   &__button{
     display: inline-flex;
     align-items: center;
-    font-size: 2.3rem;
+    justify-content: center;
+    flex-flow: row wrap;
     background: transparent;
     border: none;
-    @include maxQuery($laptop){
-      font-size: 2rem;
-    }
-    @include maxQuery($tablet){
-      font-size: 1.5rem;
-    }
+    font-size: 1.5rem;
     @include maxQuery($mobile){
       font-size: 1.1rem;
     }
   }
+  &__step-text{
+    width: 100%;
+    transition: color .3s;
+    margin-bottom: 10px;
+  }
+  &__square{
+    width: 15px;
+    height: 15px;
+    border: 2px solid #4d4d4d;
+    transform: rotate(45deg);
+    position: relative;
+    background-color: white;
+    z-index: 2;
+    transition: border-color .3s;
+  }
+  &__image-wrapper{
+    width: 100%;
+  }
   &__image{
     max-width: 100px;
     max-height: 70px;
-    @include maxQuery($mobile){
+  }
+  @include maxQuery($mobile){
+    margin-bottom: 20px;
+    &:after{
+      top: 44px;
+    }
+    &__image{
       display: none;
     }
   }
@@ -140,15 +182,35 @@ select{
 .PageBar__button{
   &--enabled{
     color: #4d4d4d;
+    .PageBar__square{
+      border-color: #4d4d4d;
+    }
   }
   &--disabled{
     color: #dbdbdb;
+    .PageBar__square{
+      border-color: #dbdbdb;
+    }
   }
   &--active{
     color: $accent-color;
+    .PageBar__square{
+      border-color: $accent-color;
+    }
   }
 }
-
+.PageBar__description{
+  text-align: center;
+  margin-top: 20px;
+  h3{
+    margin-top: 0;
+    text-transform: uppercase;
+    color: $accent-color;
+  }
+  @include maxQuery($mobile){
+    display: none;
+  }
+}
 //Product
 .Product{
   display: inline-block;
@@ -172,14 +234,22 @@ select{
     padding: 10px 20px;
     min-width: 160px;
     transition: color .3s;
+    font-size: 14px;
     &:hover{
       color: $accent-color;
+    }
+    @include maxQuery($mobile){
+      min-width: auto;
+      max-width: 90%;
+      width: 85%;
+      padding: 7px;
+      font-size: 12px;
     }
   }
   &__title{
     margin-bottom: 5px;
     @include maxQuery($mobile){
-      margin-top: 20px;
+      margin-top: 10px;
     }
   }
   &__hover-container{
@@ -215,6 +285,10 @@ select{
       background-color: white;
       text-transform: uppercase;
       padding: 10px 15px;
+      font-size: 14px;
+      @include maxQuery($mobile){
+        font-size: 12px;
+      }
     }
   }
 }
@@ -225,7 +299,7 @@ select{
 }
 .Product--main .Product{
   &__image{
-    width: 90%;
+    width: 50%;
   }
   &__button{
     position: absolute;
@@ -261,8 +335,7 @@ select{
     opacity: 0;
     position: absolute;
     bottom: 10px;
-    width: 220px;
-    max-width: 100%;
+    width: 89%;
     left: 50%;
     transform: translateX(-50%);
     transition: opacity .3s;
@@ -289,10 +362,12 @@ select{
     text-transform: uppercase;
     padding: 5px 10px;
     bottom: 0;
+    font-size: 14px;
     @include maxQuery($mobile){
       transform: none;
       position: static;
       margin: 0 auto;
+      font-size: 12px;
     }
   }
   &__quantity{
@@ -373,7 +448,9 @@ select{
     bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
+    font-size: 14px;
     @include maxQuery($mobile){
+      font-size: 12px;
       min-width: auto;
       width: 90%;
       position: static;
@@ -389,6 +466,8 @@ select{
     width: 900px;
     max-width: 100%;
     justify-content: space-between;
+    background-color: white;
+    padding: 15px 10px;
   }
   &__image-container{
     width: 40%;
@@ -404,10 +483,14 @@ select{
     margin-bottom: 20px;
   }
   textarea{
+    padding-left: 5px;
+    padding-top: 5px;
+    margin-top: 5px;
     width: 100%;
   }
   @include maxQuery($tablet){
     &__content{
+      background-color: transparent;
       flex-direction: column-reverse;
     }
     &__image-container{
@@ -468,10 +551,14 @@ select{
   border: 1px solid black;
   border-radius: 0;
   background: transparent;
-  height: 40px;
+  height: 30px;
   padding-left: 5px;
   -webkit-appearance: none;
   -moz-appearance: none;
+  font-size: 14px;
+  @include maxQuery($mobile){
+    font-size: 12px;
+  }
 }
 
 //Build Summary
@@ -510,12 +597,14 @@ select{
     max-width: 100%;
   }
   &__fill-text{
+    font-family: 'AvenirBook';
     position: absolute;
     z-index: 2;
     width: 100%;
   }
   &__total-price{
     margin-bottom: 10px;
+    font-family: 'AvenirBook';
   }
   &__change-button{
     background-color: black;
@@ -524,6 +613,7 @@ select{
     border: none;
     width: 100%;
     padding: 7px 10px;
+    font-size: 14px;
     span{
       display: inline-block;
       margin-left: 5px;
@@ -544,6 +634,14 @@ select{
     width: 75%;
     padding-left: 10px;
     padding-right: 10px;
+  }
+  @include maxQuery(1300px){
+    &__product{flex-flow: row wrap;}
+    &__product-image,
+    &__product-text{
+      width: 100%;
+      padding: 0;
+    }
   }
   &__product-title{
     font-weight: bold;
@@ -578,10 +676,16 @@ select{
   position: fixed;
   text-align: center; 
   bottom: 100px;
-  right: 150px;
+  right: 40px;
   z-index: 1;
+  img{
+    width: 50%;
+  }
   @include maxQuery(1400px){
-    right: 100px;
+    right: 40px;
+    img{
+      width: 50%;
+    }
   }
   @include maxQuery(1200px){
     right: 50px;
@@ -604,7 +708,6 @@ select{
 }
 
 .MobileBuildSummary{
-  top: initial !important;
   position: fixed;
   bottom: 0;
   left: 0;
@@ -651,6 +754,7 @@ select{
     transform: translateY(-50%);
     z-index: 2;
     width: 100%;
+    font-family: 'AvenirBook';
   }
   &__buttons{
     display: flex;
@@ -665,6 +769,7 @@ select{
     padding-top: 10px;
     padding-bottom: 10px;
     margin-left: 20px;
+    font-size: 14px;
   }
   &__page-button--info{
     color: #B4B4B4;
@@ -708,48 +813,48 @@ select{
     width: 100%;
     padding: 5px 0px;
   }
-  &--active{
-    top: 0;
-    overflow-y: scroll;
-  }
-  &--active .MobileBuildSummary{
-    &__products{
-      display: block;
-    }
-  }
   @include maxQuery($mobile){
-    flex-flow: row wrap;
+    flex-wrap: wrap;
+    flex-direction: row;
     padding: 10px;
     align-items: flex-end;
-    display: block;
     &__total-price,
     &__fill-meter{
       width: 100%;
       margin: 0;
       box-sizing: border-box;
     }
-
+    &__fill-meter{
+      order: 3;
+    }
     &__total-price{
+      order: 1;
       display: flex;
       align-items: center;
-      margin-bottom: 20px;
+      margin-bottom: 10px;
     }
-
     &__view-box{
+      font-size: 14px;
       padding: 5px;
       display: block;
       background-color: white;
       border: 1px solid black;
     }
-
     &__total-price-text,
     &__view-box{
       width: 50%;
     }
-
     &__buttons{
+      order: 2;
       width: 100%;
-      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+    &__page-button{
+      padding-top: 5px;
+      padding-bottom: 5px;
+    }
+    &__products{
+      order: 4;
     }
 
     &__page-button{
@@ -757,6 +862,22 @@ select{
       flex: auto;
       max-width: initial;
       margin: 0;
+    }
+    &--active{
+      top: 15%;
+      overflow-y: scroll;
+    }
+    &__product-remove{
+      position: absolute;
+      right: 10px;
+      bottom: 10px;
+      width: auto;
+      padding: 5px;
+    }
+    &--active .MobileBuildSummary{
+      &__products{
+        display: block;
+      }
     }
   }
 }

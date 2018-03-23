@@ -16,12 +16,13 @@
         <div class="Product__card-popup__text">
           <h3 class="Product__card-popup__heading">Write your card</h3>
           <p class="Product__card-popup__body">Your message will be handwritten by our team. Please make sure you wrote everything as you'd like it to appear!</p>
-          <textarea @keyup="validateMessage" placeholder="Up to 320 charachters" v-if="!isBlank" v-model="message" name="message" cols="30" rows="5"></textarea>
+          <span>Characters remaining: {{characterCheck}}</span>
+          <textarea @keyup="validateMessage" placeholder="Up to 350 characters" v-if="!isBlank" v-model="message" name="message" cols="30" rows="5"></textarea>
           <div class="Product__card-popup__input-container">
             <input name="BlankCard" type="checkbox" v-model="isBlank" @change="clearMessage"/>
             <label for="BlankCard">Click here if you want your card blank</label>
           </div>
-          <button :disabled="!validMessage" class="Product__card-popup__button" @click="updateMessage">All Set</button>
+          <button :disabled="!validMessage" class="Product__card-popup__button" @click="updateMessage">Save Message</button>
         </div>
       </div>
     </div>
@@ -47,11 +48,19 @@ export default {
     },
     isSelected(){
       return this.$store.getters.isSelectedCardProduct(this.product);
+    },
+    characterCheck(){
+      if(this.message.length <= 350){
+        return 350 - this.message.length;
+      }else{
+        return 'Message too long';
+      }
     }
   },
   methods:{
     validateMessage(e){
-      this.validMessage = e.target.value.length < 320;
+      this.message = e.target.value;
+      return this.validMessage = e.target.value.length < 350;
     },
     selectProduct(){
       this.popupIsActive = true;

@@ -16,7 +16,6 @@ export default {
   },
   methods:{
     scrollFade(){
-      console.log(document.documentElement.scrollTop);
       if(document.documentElement.scrollTop > 300){
         this.show = false;
         window.removeEventListener('scroll',this.scrollFade);
@@ -26,7 +25,11 @@ export default {
     }
   },
   mounted(){
-    window.addEventListener('scroll', this.scrollFade);
+    if(this.$store.state.selectedAddonProducts.length === 0 && this.$store.state.selectedCardProduct.id == undefined){
+      window.addEventListener('scroll', this.scrollFade);
+    }else{
+      this.show = false;
+    }
   },
   beforeDestroy(){
     window.removeEventListener('scroll',this.scrollFade);

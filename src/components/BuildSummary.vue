@@ -8,7 +8,7 @@
     </div>
     <div class="BuildSummary__total-price">Subtotal: {{totalBuildPrice}}</div>
     <button class="BuildSummary__change-button" @click="updatePage(1)">
-      <i class="fa fa-angle-left"></i><span>Change Your Crate</span>
+      <i class="fa fa-angle-left"></i><span>Switch Box Design</span>
     </button>
     <div class="BuildSummary__main-product">
       <div class="BuildSummary__product" v-if="itemExists(mainProduct)">

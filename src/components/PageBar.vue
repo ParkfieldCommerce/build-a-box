@@ -1,17 +1,32 @@
 <template>
-  <div class="PageBar">
-    <button @click="updatePage(1)" class="PageBar__button PageBar__button--enabled" :class="[currentpage == 1 ? 'PageBar__button--active' : '']">
-      1. Pick a box
-      <img class="PageBar__image" src="https://cdn.shopify.com/s/files/1/3105/1134/files/step1.jpg?7669629119457782060" alt="">
-    </button>
-    <button @click="updatePage(2)" class="PageBar__button" :class="[currentpage == 2 ? 'PageBar__button--active' : '', hasMainProduct ? 'PageBar__button--enabled':'PageBar__button--disabled']">
-      2. Fill with gifts
-      <img class="PageBar__image" src="https://cdn.shopify.com/s/files/1/3105/1134/files/step2.jpg?7669629119457782060" alt="">
-    </button>
-    <button @click="updatePage(3)" class="PageBar__button" :class="[currentpage == 3 ? 'PageBar__button--active' : '', hasAddonProduct ? 'PageBar__button--enabled':'PageBar__button--disabled']">
-      3. Pick a card & write
-      <img class="PageBar__image" src="https://cdn.shopify.com/s/files/1/3105/1134/files/step3.jpg?7669629119457782060" alt="">
-    </button>
+  <div class="PageBar__container">
+    <div class="PageBar">
+      <button @click="updatePage(1)" class="PageBar__button PageBar__button--enabled" :class="[currentpage == 1 ? 'PageBar__button--active' : '']">
+        <div class="PageBar__step-text">step 1</div>
+        <div class="PageBar__square"></div>
+        <div class="PageBar__image-wrapper">
+          <img class="PageBar__image" src="https://cdn.shopify.com/s/files/1/3105/1134/files/step1.jpg?7669629119457782060" alt="">
+        </div>
+      </button>
+      <button @click="updatePage(2)" class="PageBar__button" :class="[currentpage == 2 ? 'PageBar__button--active' : '', hasMainProduct ? 'PageBar__button--enabled':'PageBar__button--disabled']">
+        <div class="PageBar__step-text">step 2</div>
+        <div class="PageBar__square"></div>
+        <div class="PageBar__image-wrapper">
+          <img class="PageBar__image" src="https://cdn.shopify.com/s/files/1/3105/1134/files/step2.jpg?7669629119457782060" alt="">
+        </div>
+      </button>
+      <button @click="updatePage(3)" class="PageBar__button" :class="[currentpage == 3 ? 'PageBar__button--active' : '', hasAddonProduct ? 'PageBar__button--enabled':'PageBar__button--disabled']">
+        <div class="PageBar__step-text">step 3</div>
+        <div class="PageBar__square"></div>
+        <div class="PageBar__image-wrapper">
+          <img class="PageBar__image" src="https://cdn.shopify.com/s/files/1/3105/1134/files/step3.jpg?7669629119457782060" alt="">
+        </div>
+      </button>
+    </div>
+    <div class="PageBar__description">
+      <h3>Step {{currentpage}}</h3>
+      <p>{{stepDescription}}</p>
+    </div>
   </div>
 </template>
 
@@ -39,6 +54,17 @@ export default {
     },
     hasAddonProduct(){
       return this.$store.state.selectedAddonProducts.length > 0;
+    },
+    stepDescription(){
+      if(this.currentpage == 1){
+        return `We've hand-selected the best box products in one place`
+      }
+      if(this.currentpage == 2){
+        return `We've hand-selected the best addon products in one place`
+      }
+      if(this.currentpage == 3){
+        return `We've hand-selected the best card products in one place`
+      }
     }
   }
 }
