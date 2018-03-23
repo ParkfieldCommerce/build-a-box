@@ -1,6 +1,6 @@
 <template>
   <div class="Product Product--main" :class="isSelected ? 'Product--selected' : ''">
-    <img class="Product__image" :src="product | getProductImage">
+    <img @click="selectProduct" class="Product__image" :src="product | getProductImage">
     <button class="Product__button" @click="selectProduct">{{buttonActionText}}</button>
   </div>
 </template>

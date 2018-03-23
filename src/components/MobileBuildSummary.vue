@@ -4,11 +4,6 @@
       <span class="MobileBuildSummary__total-price-text">Subtotal: {{totalBuildPrice}}</span>
       <button @click="cartView = !cartView" class="MobileBuildSummary__view-box">{{cartView ? 'Keep Building' : 'View Box'}}</button>
     </div>
-    <div class="MobileBuildSummary__fill-meter">
-      <div class="MobileBuildSummary__fill-amount" :style="{width: buildCapacity + '%'}">
-      </div>
-      <div class="MobileBuildSummary__fill-text">{{fillAmountText}}</div>
-    </div>
     <div v-if="currentpage == 1 && !cartView" class="MobileBuildSummary__buttons">
       <button v-if="hasMainProduct" class="MobileBuildSummary__page-button MobileBuildSummary__page-button--next" @click="updatePage(2)">Next</button>
       <button v-else class="MobileBuildSummary__page-button MobileBuildSummary__page-button--info">Choose Box</button>
@@ -23,6 +18,11 @@
       <CartButton v-if="hasCardProduct && hasAddonProduct"></CartButton>
       <button v-else-if="hasCardProduct && !hasAddonProduct" class="MobileBuildSummary__page-button MobileBuildSummary__page-button--next" @click="updatePage(2)">Choose Gifts</button>
       <button v-else class="MobileBuildSummary__page-button MobileBuildSummary__page-button--info">Choose a Card</button>
+    </div>
+    <div class="MobileBuildSummary__fill-meter">
+      <div class="MobileBuildSummary__fill-amount" :style="{width: buildCapacity + '%'}">
+      </div>
+      <div class="MobileBuildSummary__fill-text">{{fillAmountText}}</div>
     </div>
     <div class="MobileBuildSummary__products">
       <div class="MobileBuildSummary__main-product">

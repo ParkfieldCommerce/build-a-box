@@ -2,7 +2,7 @@
   <div class="Product Product--card" :class="isSelected ? 'Product--selected' : ''">
     <div class="Product__hover-container">
       <div class="Product__image-container">
-        <img class="Product__image" :src="product | getProductImage">
+        <img @click="selectProduct" class="Product__image" :src="product | getProductImage">
       </div>
       <button class="Product__button" @click="selectProduct">{{buttonActionText}}</button>
     </div>
@@ -16,12 +16,12 @@
         <div class="Product__card-popup__text">
           <h3 class="Product__card-popup__heading">Write your card</h3>
           <p class="Product__card-popup__body">Your message will be handwritten by our team. Please make sure you wrote everything as you'd like it to appear!</p>
-          <textarea v-if="!isBlank" v-model="message" name="message" cols="30" rows="5"></textarea>
+          <textarea @keyup="validateMessage" placeholder="Up to 320 charachters" v-if="!isBlank" v-model="message" name="message" cols="30" rows="5"></textarea>
           <div class="Product__card-popup__input-container">
             <input name="BlankCard" type="checkbox" v-model="isBlank" @change="clearMessage"/>
             <label for="BlankCard">Click here if you want your card blank</label>
           </div>
-          <button class="Product__card-popup__button" @click="updateMessage">All Set</button>
+          <button :disabled="!validMessage" class="Product__card-popup__button" @click="updateMessage">All Set</button>
         </div>
       </div>
     </div>
@@ -37,7 +37,8 @@ export default {
     return{
       popupIsActive: false,
       message:'',
-      isBlank: false
+      isBlank: false,
+      validMessage: true
     }
   },
   computed:{
@@ -49,11 +50,14 @@ export default {
     }
   },
   methods:{
+    validateMessage(e){
+      this.validMessage = e.target.value.length < 320;
+    },
     selectProduct(){
       this.popupIsActive = true;
       this.$store.commit('updateSelectedCardProduct',this.product);
     },
-    clearMessage(event){
+    clearMessage(e){
       if(this.isBlank){
         this.message = '';
       }

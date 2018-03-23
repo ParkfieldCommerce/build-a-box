@@ -357,6 +357,11 @@ select{
     }
   }
 }
+.Product--card.Product--selected{
+  .Product__button{
+    opacity: 1;
+  }
+}
 .Product--card .Product{
   &__image-container{
     position: relative;
