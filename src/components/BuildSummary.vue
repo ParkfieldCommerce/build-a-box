@@ -42,16 +42,22 @@
           <span v-if="cardProduct.message != ''">Message: {{cardProduct.message}}</span>
         </div>
       </div>
+      <CardProductPopup :product="cardProduct"></CardProductPopup>
     </div>
   </div>
 </template>
 
 <script>
+import CardProductPopup from './CardProductPopup.vue';
+
 export default {
   data(){
     return{
       fillAmountText: 0
     }
+  },
+  components:{
+    'CardProductPopup':CardProductPopup
   },
   computed:{
     mainProduct(){

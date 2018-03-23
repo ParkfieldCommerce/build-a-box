@@ -16,7 +16,7 @@
         <div class="Product__card-popup__text">
           <h3 class="Product__card-popup__heading">Write your card</h3>
           <p class="Product__card-popup__body">Your message will be handwritten by our team. Please make sure you wrote everything as you'd like it to appear!</p>
-          <span>Characters remaining: {{characterCheck}}</span>
+          <span v-if="!isBlank">Characters remaining: {{characterCheck}}</span>
           <textarea @keyup="validateMessage" placeholder="Up to 350 characters" v-if="!isBlank" v-model="message" name="message" cols="30" rows="5"></textarea>
           <div class="Product__card-popup__input-container">
             <input name="BlankCard" type="checkbox" v-model="isBlank" @change="clearMessage"/>
