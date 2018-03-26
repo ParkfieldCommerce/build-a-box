@@ -40,9 +40,10 @@
           <span class="BuildSummary__product-title">{{cardProduct.title}}</span><br>
           <span class="BuildSummary__product-price">{{cardProduct | moneyFormat}}</span><br>
           <span v-if="cardProduct.message != ''">Message: {{cardProduct.message}}</span>
+          <button @click="openPopup()" class="BuildSummary__edit">Edit</button>
         </div>
       </div>
-      <CardProductPopup :product="cardProduct"></CardProductPopup>
+      <CardProductPopup @deactivate="closePopup()" :activate="popupIsActive" :product="cardProduct"></CardProductPopup>
     </div>
   </div>
 </template>
@@ -53,7 +54,8 @@ import CardProductPopup from './CardProductPopup.vue';
 export default {
   data(){
     return{
-      fillAmountText: 0
+      fillAmountText: 0,
+      popupIsActive: false
     }
   },
   components:{
@@ -116,6 +118,12 @@ export default {
         }
       }
       return pass;
+    },
+    openPopup(){
+      this.popupIsActive = true;
+    },
+    closePopup(){
+      this.popupIsActive = false;
     }
   }
 };

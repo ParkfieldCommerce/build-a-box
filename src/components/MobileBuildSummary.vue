@@ -55,8 +55,10 @@
             <span class="MobileBuildSummary__product-title">{{cardProduct.title}}</span><br>
             <span class="MobileBuildSummary__product-price">{{cardProduct | moneyFormat}}</span><br>
             <span>Message: {{cardProduct.message}}</span>
+            <button @click="openPopup()" class="BuildSummary__edit">Edit</button>
           </div>
         </div>
+        <CardProductPopup @deactivate="closePopup()" :activate="popupIsActive" :product="cardProduct"></CardProductPopup>
       </div>
     </div>
   </div>
@@ -64,6 +66,8 @@
 
 <script>
 import CartButton from './CartButton';
+import CardProductPopup from './CardProductPopup.vue';
+
 export default {
   props:{
     currentpage: Number
@@ -71,7 +75,8 @@ export default {
   data(){
     return{
       fillAmountText: 0,
-      cartView: false
+      cartView: false,
+      popupIsActive: false
     }
   },
   computed:{
@@ -125,7 +130,8 @@ export default {
     }
   },
   components:{
-    'CartButton':CartButton
+    'CartButton':CartButton,
+    'CardProductPopup':CardProductPopup
   },
   methods:{
     removeAddon(product){
@@ -154,6 +160,12 @@ export default {
         }
       }
       return pass;
+    },
+    openPopup(){
+      this.popupIsActive = true;
+    },
+    closePopup(){
+      this.popupIsActive = false;
     }
   }
 };

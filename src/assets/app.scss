@@ -449,6 +449,7 @@ select{
     left: 50%;
     transform: translateX(-50%);
     font-size: 14px;
+    min-width: 90%;
     @include maxQuery($mobile){
       font-size: 12px;
       min-width: auto;
@@ -669,6 +670,14 @@ select{
     .fa-times-thin:before {
       content: '\00d7';
     }
+  }
+
+  &__edit{
+    background: transparent;
+    border: none;
+    text-decoration: underline;
+    display: block;
+    padding: 0;
   }
 }
 
