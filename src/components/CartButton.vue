@@ -15,7 +15,7 @@ export default {
   },
   computed:{
     buttonActionText(){
-      return this.isAdding ? 'Building...' : 'Complete Happybox';
+      return this.isAdding ? 'Building...' : 'Done!';
     }
   },
   methods:{

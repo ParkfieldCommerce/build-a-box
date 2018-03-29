@@ -2,8 +2,9 @@
   <div class="Product Product--addon" :class="[isSelected ? 'Product--selected' : '', ableToAddMore ? '' : 'Product--disabled']">
     <div class="Product__hover-container">
     <div class="Product__image-container">
-      <span class="Product__quantity-added" v-show="product.quantity > 0">{{quantityAdded}}</span>
+      <span class="Product__quantity-added" v-show="product.quantity > 0"><span>{{quantityAdded}}</span></span>
       <img @click="updateCartQuantity(true)" class="Product__image" :src="product | getProductImage">
+      <div v-if="hasAltImage" class="Product__image Product__image--alt" :style="{ 'backgroundImage': 'url(' + product.images[1].src + ')' }"></div>
     </div>
       <div v-if="quantityAdded" class="Product__button-container Product__button-container--active">
         <div class="Product__quantity">
@@ -59,6 +60,9 @@ export default {
         currentCapacity = 0;
       }
       return maxCapacity >= currentCapacity + this.product.capacity;
+    },
+    hasAltImage(){
+      return this.product.images.length > 1;
     }
   },
   methods:{

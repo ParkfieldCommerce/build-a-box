@@ -60,7 +60,7 @@ export default {
         return `We've hand-selected the best box products in one place`
       }
       if(this.currentpage == 2){
-        return `We've hand-selected the best addon products in one place`
+        return `We've hand-selected the best products in one place. Select from the items below and fill up your box!`
       }
       if(this.currentpage == 3){
         return `We've hand-selected the best card products in one place`

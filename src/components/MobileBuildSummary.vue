@@ -2,7 +2,7 @@
   <div class="MobileBuildSummary" :class="cartView ? 'MobileBuildSummary--active' : ''">
     <div class="MobileBuildSummary__total-price">
       <span class="MobileBuildSummary__total-price-text">Subtotal: {{totalBuildPrice}}</span>
-      <button @click="cartView = !cartView" class="MobileBuildSummary__view-box">{{cartView ? 'Keep Building' : 'View Box'}}</button>
+      <button @click="toggleCartView" class="MobileBuildSummary__view-box">{{cartView ? 'Collapse Cart' : 'View Box'}}</button>
     </div>
     <div class="MobileBuildSummary__fill-meter">
       <div class="MobileBuildSummary__fill-amount" :style="{width: buildCapacity + '%'}">
@@ -122,7 +122,7 @@ export default {
       if(currentCapacity > maxCapacity){
         this.fillAmountText = 'Overfull'
       }else if(currentCapacity == maxCapacity){
-        this.fillAmountText = 'Full'
+        this.fillAmountText = '100% Full'
       }else{
         this.fillAmountText = `${Math.floor((currentCapacity/maxCapacity)*100)} %`;
       }
@@ -160,6 +160,15 @@ export default {
         }
       }
       return pass;
+    },
+    toggleCartView(){
+      let body = document.querySelector('body');
+      if(this.cartView == true){
+        body.classList.remove('fixed');
+      }else{
+        body.classList.add('fixed');
+      }
+      this.cartView = !this.cartView;
     },
     openPopup(){
       this.popupIsActive = true;

@@ -7,7 +7,9 @@
           <img class="Product__card-popup__image" :src="product | getProductImage">
         </div>
         <div class="Product__card-popup__text">
-          <h3 class="Product__card-popup__heading">Write your card</h3>
+          <h3 class="Product__card-popup__heading">
+          <img class="Product__card-popup__heading-image" src="https://cdn.shopify.com/s/files/1/3105/1134/files/step3.jpg?7669629119457782060" alt="">
+          <span>Write your card</span></h3>
           <p class="Product__card-popup__body">Your message will be handwritten by our team. Please make sure you wrote everything as you'd like it to appear!</p>
           <span v-if="!isBlank">Characters remaining: {{characterCheck}}</span>
           <textarea @keyup="validateMessage" placeholder="Up to 350 characters" v-if="!isBlank" v-model="message" name="message" cols="30" rows="5"></textarea>
@@ -15,7 +17,8 @@
             <input name="BlankCard" type="checkbox" v-model="isBlank" @change="clearMessage"/>
             <label for="BlankCard">Click here if you want your card blank</label>
           </div>
-          <button :disabled="!validMessage" class="Product__card-popup__button" @click="updateMessage">Save Message</button>
+          <button class="Product__card-popup__button" @click="closePopup">Back</button>
+          <button :disabled="!validMessage" class="Product__card-popup__button" @click="updateMessage">Add & Review Box</button>
         </div>
       </div>
     </div>
@@ -36,8 +39,15 @@ export default {
     }
   },
   watch:{
-    activate(){
+    activate(currentValue, nextValue){
       this.message = this.$store.state.selectedCardProduct.message;
+
+      let body = document.querySelector('body');
+      if(nextValue == true){
+        body.classList.remove('fixed');
+      }else{
+        body.classList.add('fixed');
+      }
     }
   },
   computed:{

@@ -12,6 +12,10 @@ Vue.filter('getProductImage', product => {
   return product.images[0].src;
 });
 
+Vue.filter('getAltImage', product => {
+  return product.images[1].src;
+});
+
 Vue.filter('moneyFormat', product => {
   if(product.variants){
     return `$${product.variants[0].price}`

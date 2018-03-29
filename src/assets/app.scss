@@ -3,6 +3,13 @@ $body-color: #3e3e3e;
 $laptop: 1440px;
 $tablet: 1000px;
 $mobile: 765px;
+
+@mixin minQuery($resolution){
+  @media screen and (min-width: $resolution){
+    @content;
+  }
+}
+
 @mixin maxQuery($resolution){
   @media screen and (max-width: $resolution){
     @content;
@@ -14,8 +21,12 @@ $mobile: 765px;
 }
 
 button{
+  outline: none;
   &:hover{
     cursor: pointer;
+  }
+  &::-moz-focus-inner {
+    border: 0;
   }
 }
 img{
@@ -30,7 +41,10 @@ ul{
 select{
   padding: 0;
 }
-.container{
+body.fixed{
+  overflow: hidden;
+}
+.BuildABox__container{
   max-width: 90%;
   margin:  0 auto;
   @include maxQuery($mobile){
@@ -38,6 +52,7 @@ select{
   }
 }
 .BuildABox{
+  margin-top: 20px;
   font-size: 14px;
   display: flex;
   flex-flow: row wrap;
@@ -53,15 +68,18 @@ select{
     color: $body-color;
   }
   &__main{
-    width: 88%;
+    width: 85%;
   }
   &__sidebar{
-    width: 12%;
+    width: 15%;
     position: relative;
   }
   &__main-products{
     display: flex;
     flex-flow: row wrap;
+    max-width: 100%;
+    width: 1200px;
+    margin: 0 auto;
     li{
       text-align: center;
       width: 50%;
@@ -73,7 +91,7 @@ select{
     flex-flow: row wrap;
     li{
       text-align: left;
-      width: 20%;
+      width: 25%;
       margin-bottom: 20px;
     }
   }
@@ -82,7 +100,7 @@ select{
  .BuildABox{
     &__addon-products,
     &__card-products{
-      li{width: 20%;}
+      li{width: 25%;}
     }  
   } 
 }
@@ -128,7 +146,7 @@ select{
     width: 100%;
     position: absolute;
     transform: translateY(-50%);
-    top: 53px;
+    top: 50px;
     right: 0;
     background-color: #4d4d4d;
     z-index: 1;
@@ -141,7 +159,7 @@ select{
     flex-flow: row wrap;
     background: transparent;
     border: none;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     @include maxQuery($mobile){
       font-size: 1.1rem;
     }
@@ -201,11 +219,20 @@ select{
 }
 .PageBar__description{
   text-align: center;
-  margin-top: 20px;
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
   h3{
-    margin-top: 0;
+    margin: 0;
     text-transform: uppercase;
     color: $accent-color;
+    margin-right: 30px;
+  }
+  p{
+    max-width: 100%;
+    width: 450px;
+    margin: 0;
   }
   @include maxQuery($mobile){
     display: none;
@@ -217,11 +244,28 @@ select{
   text-align: center;
   position: relative;
   &__image{
+    box-sizing: border-box;
     border: 2px solid transparent;
     margin: 0 auto;
   }
+  &__image--alt{
+    border: 2px solid transparent;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity .3s;
+    background-size: cover;
+    background-position: center;
+  }
   &--disabled .Product__image{
     opacity: .15;
+  }
+  &--disabled .Product__image--alt{
+    opacity: 0;
   }
   &--selected .Product__image{
     opacity: 1;
@@ -251,6 +295,10 @@ select{
     @include maxQuery($mobile){
       margin-top: 10px;
     }
+  }
+  &__price{
+    font-weight: bold;
+    font-size: 13px;
   }
   &__hover-container{
     position: relative;
@@ -291,6 +339,14 @@ select{
       }
     }
   }
+  &:hover{
+    @include minQuery($mobile){
+      .Product__image--alt{
+        opacity: 1;
+        z-index: 2;
+      }
+    }
+  }
 }
 
 .Product--main{
@@ -299,7 +355,7 @@ select{
 }
 .Product--main .Product{
   &__image{
-    width: 50%;
+    width: 80%;
   }
   &__button{
     position: absolute;
@@ -340,6 +396,7 @@ select{
     transform: translateX(-50%);
     transition: opacity .3s;
     display: flex;
+    z-index: 4;
     @include maxQuery($mobile){
       width: 100%;
       opacity: 1;
@@ -400,7 +457,7 @@ select{
   &__quantity-added{
     position: absolute;
     top: -10px;
-    right: -20px;
+    right: -13px;
     background-color: white;
     border: 2px solid $accent-color;
     border-radius: 30px;
@@ -409,9 +466,12 @@ select{
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 2;
-    @include maxQuery($mobile){
-      right: -10px;
+    z-index: 3;
+    span{
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%,-50%);
     }
   }
   &__image-container{
@@ -430,6 +490,9 @@ select{
     .Product__button{
       opacity: 1;
     }
+  }
+  @include maxQuery($tablet){
+    position: static;
   }
 }
 .Product--card.Product--selected{
@@ -472,11 +535,20 @@ select{
   }
   &__image-container{
     width: 40%;
+    img{
+      width: 100%;
+    }
+  }
+  &__heading{
+    display: flex;
+    align-items: center;
+  }
+  &__heading-image{
+    max-width: 50px;
   }
   &__text{
     padding: 15px;
     width: 55%;
-    background-color: #F9F9F9;
     text-align: left;
   }
   &__input-container{
@@ -484,15 +556,29 @@ select{
     margin-bottom: 20px;
   }
   textarea{
+    font-family: 'AvenirBook';
     padding-left: 5px;
     padding-top: 5px;
     margin-top: 5px;
     width: 100%;
   }
   @include maxQuery($tablet){
+    z-index: 31;
+    /* Changes */
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    bottom: initial;
+    right: initial;
     &__content{
       background-color: transparent;
       flex-direction: column-reverse;
+      /* Changes */
+      top: 10px;
+      left: 00px;
+      transform: none;
     }
     &__image-container{
       display: none;
@@ -500,6 +586,7 @@ select{
     }
     &__text{
       width: 80%;
+      background-color: white;
       margin-left: auto;
       margin-right: auto;
     }
@@ -598,6 +685,10 @@ select{
     max-width: 100%;
   }
   &__fill-text{
+    height: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
     font-family: 'AvenirBook';
     position: absolute;
     z-index: 2;
@@ -721,13 +812,16 @@ select{
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 8px 10px;
-  z-index: 2;
-  background-color: #FCF4FF;
+  padding: 4px 10px;
+  z-index: 30;
+  background-color: #000;
   display: flex;
   align-items: center;
   &__total-price{
     width: 30%;
+  }
+  &__total-price-text{
+    color: white;
   }
   &__view-box{
     display: none;
@@ -771,12 +865,12 @@ select{
     justify-content: flex-end;
   }
   &__page-button{
-    border: 1px solid black;
+    border: 1px solid white;
     background-color: white;
     flex: 1;
     max-width: 160px;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
     margin-left: 20px;
     font-size: 14px;
   }

@@ -92,7 +92,7 @@ export default {
       if(currentCapacity > maxCapacity){
         this.fillAmountText = 'Overfull'
       }else if(currentCapacity == maxCapacity){
-        this.fillAmountText = 'Full'
+        this.fillAmountText = '100% Full'
       }else{
         this.fillAmountText = `${Math.floor((currentCapacity/maxCapacity)*100)} %`;
       }
