@@ -17,7 +17,7 @@ $mobile: 765px;
 }
 @font-face {
   font-family: 'AvenirBook';
-  src: url('https://cdn.shopify.com/s/files/1/3105/1134/files/AvenirLTStd-Book.otf?2506938391529803029');
+  src: url('https://cdn.shopify.com/s/files/1/1363/8433/files/AvenirLTStd-Book.otf?14267440177445714804');
 }
 
 button{
@@ -41,8 +41,17 @@ ul{
 select{
   padding: 0;
 }
-body.fixed{
+body.card-active{
+  margin: 0;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   overflow: hidden;
+}
+.respond-to-notification-bar .main-content.active{
+  margin-top: 0;
 }
 .BuildABox__container{
   max-width: 90%;
@@ -152,6 +161,13 @@ body.fixed{
     z-index: 1;
     transition: background-color .3s;
   }
+  &__buttons{
+    max-width: 100%;
+    width: 800px;
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
+  }
   &__button{
     display: inline-flex;
     align-items: center;
@@ -189,7 +205,7 @@ body.fixed{
   @include maxQuery($mobile){
     margin-bottom: 20px;
     &:after{
-      top: 44px;
+      top: 42px;
     }
     &__image{
       display: none;
@@ -320,7 +336,7 @@ body.fixed{
     &__overlay{
       content:'';
       display: block;
-      position: absolute;
+      position: fixed;
       z-index: 1;
       top: 0;
       left: 0;
@@ -566,12 +582,10 @@ body.fixed{
     z-index: 31;
     /* Changes */
     position: absolute;
-    width: 100%;
-    height: 100%;
     top: 0;
     left: 0;
-    bottom: initial;
-    right: initial;
+    bottom: 0;
+    right: 0;
     &__content{
       background-color: transparent;
       flex-direction: column-reverse;

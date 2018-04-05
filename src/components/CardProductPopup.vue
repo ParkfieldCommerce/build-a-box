@@ -43,10 +43,14 @@ export default {
       this.message = this.$store.state.selectedCardProduct.message;
 
       let body = document.querySelector('body');
+      let mainContent = document.querySelector('.main-content');
       if(nextValue == true){
-        body.classList.remove('fixed');
+        mainContent.classList.remove('active');
+        body.classList.remove('active');
       }else{
-        body.classList.add('fixed');
+        mainContent.classList.add('active');
+        body.classList.add('active');
+        window.scrollTo(0,10);
       }
     }
   },

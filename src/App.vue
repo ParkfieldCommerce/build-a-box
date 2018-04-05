@@ -37,7 +37,7 @@
     </div>
     <div class="BuildABox__sidebar" v-if="currentPage > 1">
       <BuildSummary @changepage="changePage($event)"></BuildSummary>
-      <MoreProducts></MoreProducts>
+      <MoreProducts :currentpage="currentPage"></MoreProducts>
     </div>
     <div class="BuildABox__mobile-summary">
       <MobileBuildSummary @changepage="changePage($event)" :currentpage="currentPage"></MobileBuildSummary>
