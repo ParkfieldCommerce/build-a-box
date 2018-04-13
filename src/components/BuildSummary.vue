@@ -80,9 +80,9 @@ export default {
         var currentCapacity = 0;
         this.addonProducts.forEach( addon => {
           let capacityTag = addon.tags.find( tag => {
-            return tag.indexOf('capacity_') > -1;
+            return tag.indexOf('Capacity_') > -1;
           });
-          let capacity = parseInt(capacityTag.split('_')[1]);
+          let capacity = parseFloat(capacityTag.split('_')[1]);
           let quantity = addon.quantity;
           currentCapacity += capacity * quantity;
         })

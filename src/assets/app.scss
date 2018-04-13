@@ -199,7 +199,6 @@ body.card-active{
     width: 100%;
   }
   &__image{
-    max-width: 100px;
     max-height: 70px;
   }
   @include maxQuery($mobile){
@@ -239,15 +238,15 @@ body.card-active{
   display: flex;
   justify-content: center;
   margin-bottom: 30px;
+  align-items: center;
   h3{
     margin: 0;
     text-transform: uppercase;
     color: $accent-color;
-    margin-right: 30px;
+    margin-right: 20px;
   }
   p{
     max-width: 100%;
-    width: 450px;
     margin: 0;
   }
   @include maxQuery($mobile){
@@ -371,7 +370,7 @@ body.card-active{
 }
 .Product--main .Product{
   &__image{
-    width: 80%;
+    width: 60%;
   }
   &__button{
     position: absolute;

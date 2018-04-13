@@ -1,6 +1,6 @@
 import axios from 'axios' 
 
-const STORE_URL = 'https://happy-box-product-builder-app-test.myshopify.com';
+const STORE_URL = 'https://happy-box-store.myshopify.com';
 const MAIN_PRODUCT_TYPE = 'Box';
 const ADDON_PRODUCT_TYPE = 'Gift';
 const CARD_PRODUCT_TYPE = 'Card';
@@ -8,7 +8,7 @@ const CARD_PRODUCT_TYPE = 'Card';
 
 let actions = {
   getProducts(context){
-    axios.get(`${STORE_URL}/collections/all.json`)
+    axios.get(`${STORE_URL}/collections/build-a-happy-box.json`)
     .then( response => {
       return response.data;
     })
@@ -23,7 +23,9 @@ let actions = {
 
     function fetchProducts(pageNum, productList){
       //Recursive function that gets the full list of products
+      console.log(pageNum);
       if(pageNum != 0){
+        console.log('here')
         axios.get(`${STORE_URL}/products.json?limit=250&page=${pageNum}`)
         .then( response => {
           return response.data;
@@ -51,10 +53,13 @@ let actions = {
       let addonProductList = totalProductList.filter(product =>{
         if(product.product_type == ADDON_PRODUCT_TYPE && product.variants[0].available){
           let capacityTag = product.tags.find( tag => {
-            return tag.indexOf('capacity_') > -1;
+            return tag.indexOf('Capacity_') > -1;
           });
-          let capacity = parseInt(capacityTag.split('_')[1]);
-          product.capacity = capacity;
+          console.log(capacityTag);
+          if(capacityTag != undefined){
+            let capacity = parseFloat(capacityTag.split('_')[1]);
+            product.capacity = capacity;
+          }
           return product;
         }
       });

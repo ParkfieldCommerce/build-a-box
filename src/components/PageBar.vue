@@ -23,6 +23,13 @@
             <img class="PageBar__image" src="https://cdn.shopify.com/s/files/1/1363/8433/files/step3.jpg?14267440177445714804" alt="Step 3">
           </div>
         </button>
+        <button @click="updatePage(3)" class="PageBar__button" :class="[currentpage == 4 ? 'PageBar__button--active' : '', hasCardProduct ? 'PageBar__button--enabled':'PageBar__button--disabled']">
+          <div class="PageBar__step-text">step 4</div>
+          <div class="PageBar__square"></div>
+          <div class="PageBar__image-wrapper">
+            <img class="PageBar__image" src="https://cdn.shopify.com/s/files/1/1363/8433/files/scooter_3.png?17398974406418408573" alt="Step 4">
+          </div>
+        </button>
       </div>
     </div>
     <div class="PageBar__description">
@@ -56,6 +63,9 @@ export default {
     },
     hasAddonProduct(){
       return this.$store.state.selectedAddonProducts.length > 0;
+    },
+    hasCardProduct(){
+      return this.$store.state.selectedCardProduct.id !== undefined;
     },
     stepDescription(){
       if(this.currentpage == 1){

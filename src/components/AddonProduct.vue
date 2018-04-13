@@ -59,6 +59,7 @@ export default {
       }else{
         currentCapacity = 0;
       }
+      console.log(currentCapacity);
       return maxCapacity >= currentCapacity + this.product.capacity;
     },
     hasAltImage(){
