@@ -4,11 +4,11 @@ const STORE_URL = 'https://happy-box-store.myshopify.com';
 const MAIN_PRODUCT_TYPE = 'Box';
 const ADDON_PRODUCT_TYPE = 'Gift';
 const CARD_PRODUCT_TYPE = 'Card';
-
+const COLLECTION_HANDLE = 'build-a-happy-box';
 
 let actions = {
   getProducts(context){
-    axios.get(`${STORE_URL}/collections/build-a-happy-box.json`)
+    axios.get(`${STORE_URL}/collections/${COLLECTION_HANDLE}.json`)
     .then( response => {
       return response.data;
     })
@@ -23,9 +23,7 @@ let actions = {
 
     function fetchProducts(pageNum, productList){
       //Recursive function that gets the full list of products
-      console.log(pageNum);
       if(pageNum != 0){
-        console.log('here')
         axios.get(`${STORE_URL}/products.json?limit=250&page=${pageNum}`)
         .then( response => {
           return response.data;
@@ -55,7 +53,6 @@ let actions = {
           let capacityTag = product.tags.find( tag => {
             return tag.indexOf('Capacity_') > -1;
           });
-          console.log(capacityTag);
           if(capacityTag != undefined){
             let capacity = parseFloat(capacityTag.split('_')[1]);
             product.capacity = capacity;

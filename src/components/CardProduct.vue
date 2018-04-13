@@ -7,6 +7,7 @@
       <button class="Product__button" @click="selectProduct">{{buttonActionText}}</button>
     </div>
     <p class="Product__title">{{product.title}}</p>
+    <span class="Product__price">{{product | moneyFormat}}</span>
     <CardProductPopup @deactivate="closePopup()" :activate="popupIsActive" :product="product"></CardProductPopup>
   </div>
 </template>

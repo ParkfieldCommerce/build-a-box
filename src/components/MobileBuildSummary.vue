@@ -54,7 +54,6 @@
           <div class="MobileBuildSummary__product-text">
             <span class="MobileBuildSummary__product-title">{{cardProduct.title}}</span><br>
             <span class="MobileBuildSummary__product-price">{{cardProduct | moneyFormat}}</span><br>
-            <span>Message: {{cardProduct.message}}</span>
             <button @click="openPopup()" class="BuildSummary__edit">Edit</button>
           </div>
         </div>

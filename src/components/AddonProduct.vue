@@ -4,7 +4,7 @@
     <div class="Product__image-container">
       <span class="Product__quantity-added" v-show="product.quantity > 0"><span>{{quantityAdded}}</span></span>
       <img @click="updateCartQuantity(true)" class="Product__image" :src="product | getProductImage">
-      <div v-if="hasAltImage" class="Product__image Product__image--alt" :style="{ 'backgroundImage': 'url(' + product.images[1].src + ')' }"></div>
+      <div v-if="hasAltImage" @click="updateCartQuantity(true)" class="Product__image Product__image--alt" :style="{ 'backgroundImage': 'url(' + product.images[1].src + ')' }"></div>
     </div>
       <div v-if="quantityAdded" class="Product__button-container Product__button-container--active">
         <div class="Product__quantity">
@@ -59,7 +59,6 @@ export default {
       }else{
         currentCapacity = 0;
       }
-      console.log(currentCapacity);
       return maxCapacity >= currentCapacity + this.product.capacity;
     },
     hasAltImage(){

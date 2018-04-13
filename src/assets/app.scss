@@ -312,6 +312,7 @@ body.card-active{
     }
   }
   &__price{
+    display: block;
     font-weight: bold;
     font-size: 13px;
   }

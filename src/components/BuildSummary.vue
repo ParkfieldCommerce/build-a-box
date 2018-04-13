@@ -39,7 +39,6 @@
         <div class="BuildSummary__product-text">
           <span class="BuildSummary__product-title">{{cardProduct.title}}</span><br>
           <span class="BuildSummary__product-price">{{cardProduct | moneyFormat}}</span><br>
-          <span v-if="cardProduct.message != ''">Message: {{cardProduct.message}}</span>
           <button @click="openPopup()" class="BuildSummary__edit">Edit</button>
         </div>
       </div>
