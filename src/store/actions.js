@@ -24,7 +24,8 @@ let actions = {
     function fetchProducts(pageNum, productList){
       //Recursive function that gets the full list of products
       if(pageNum != 0){
-        axios.get(`${STORE_URL}/products.json?limit=250&page=${pageNum}`)
+        //axios.get(`${STORE_URL}/products.json?limit=250&page=${pageNum}`)
+        axios.get(`${STORE_URL}/collections/${COLLECTION_HANDLE}/products.json?limit=250&page=${pageNum}`)
         .then( response => {
           return response.data;
         })

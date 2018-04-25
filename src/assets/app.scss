@@ -826,6 +826,7 @@ body.card-active{
   bottom: 0;
   left: 0;
   right: 0;
+  top: initial !important;
   padding: 4px 10px;
   z-index: 30;
   background-color: #000;
